@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#95d',
     width: '60%',
     padding: 15,
     borderRadius: 10,
@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 18,
   },
 })

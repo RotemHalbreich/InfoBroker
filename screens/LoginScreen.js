@@ -70,7 +70,7 @@ const LoginScreen = () => {
           onPress={handleSignUp}
           style={[styles.button, styles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: '#95d',
+    backgroundColor: '#496cfa',
     width: '100%',
     padding: 15,
     borderRadius: 10,
@@ -116,19 +116,19 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: 'white',
     marginTop: 5,
-    borderColor: '#95d',
+    borderColor: '#496cfa',
     borderWidth: 2,
   },
 
   buttonText: {
     color: 'white',
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 17,
   },
 
   buttonOutlineText: {
-    color: '#95d',
+    color: '#496cfa',
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 17,
   },
 })

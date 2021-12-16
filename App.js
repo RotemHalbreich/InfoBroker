@@ -24,25 +24,25 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
-      screenOptions={{
-        headerShown: false,
-        drawerActiveBackgroundColor: '#d677ff',
-        drawerActiveTintColor: '#fff',
-        drawerInactiveTintColor: '#333',
-        drawerLabelStyle: {
-          marginLeft: -25,
-          fontFamily: 'Roboto-Medium',
-          fontSize: 15,
-        },
-      }}>
-        <Drawer.Screen 
-        name="Login" component={LoginScreen} 
-        options={{
-          drawerIcon: ({ color }) => (
-            <Ionicons name="log-in-outline" size={22} color={color}
-            />
-          ),
-        }}
+        screenOptions={{
+          headerShown: false,
+          drawerActiveBackgroundColor: '#496cfa',
+          drawerActiveTintColor: '#fff',
+          drawerInactiveTintColor: '#333',
+          drawerLabelStyle: {
+            marginLeft: -25,
+            fontFamily: 'Roboto-Medium',
+            fontSize: 15,
+          },
+        }}>
+        <Drawer.Screen
+          name="Login" component={LoginScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="log-in-outline" size={22} color={color}
+              />
+            ),
+          }}
         />
 
         <Drawer.Screen
@@ -55,53 +55,53 @@ export default function App() {
             ),
           }}
         />
-        
+
         <Drawer.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="person-outline" size={22} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Analytics"
-        component={AnalyzeScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="analytics-outline" size={22} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Favorites"
-        component={FavoritesScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="bookmarks-outline" size={22} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="settings-outline" size={22} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="About"
-        component={AboutScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="information-circle-outline" size={22} color={color} />
-          ),
-        }}
-      />
-        
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="person-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Analytics"
+          component={AnalyzeScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="analytics-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Favorites"
+          component={FavoritesScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="bookmarks-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="settings-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="About"
+          component={AboutScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="information-circle-outline" size={22} color={color} />
+            ),
+          }}
+        />
+
       </Drawer.Navigator>
     </NavigationContainer>
   );

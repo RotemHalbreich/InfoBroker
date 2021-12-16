@@ -12,6 +12,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 
+import { auth } from '../firebase.js'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -20,34 +21,38 @@ const CustomDrawer = (props) => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: '#c588ff' }}>
+        contentContainerStyle={{ backgroundColor: '#496cfa' }}>
         <ImageBackground
           source={require('../assets/images/sidebar.jpg')}
           style={{ padding: 20 }}>
           <Image
-            source={require('../assets/images/user.jpg')}
+            source={require('../assets/images/user.png')}
             style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10 }}
           />
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 18,
-              fontWeight: '700',
-              fontFamily: 'Roboto-Medium',
-              marginBottom: 5,
-            }}>
-            Username
-          </Text>
           <View style={{ flexDirection: 'row' }}>
+          <FontAwesome5 style={{marginEnd:12}} name="user-tie" size={20} color="#fff" />
             <Text
               style={{
                 color: '#fff',
+                fontSize: 18,
+                fontWeight: '700',
+                fontFamily: 'Roboto-Medium',
+                marginBottom: 5
+              }}>
+              { auth.currentUser?.email}
+            </Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+          <FontAwesome5 style={{marginEnd:10}} name="hand-holding-usd" size={18} color="#fff" />
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 15,
                 fontFamily: 'Roboto-Regular',
                 marginRight: 5,
               }}>
-              Subtitle
+              Welcome to InfoBroker
             </Text>
-            <FontAwesome5 name="coins" size={14} color="#fff" />
           </View>
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 10 }}>

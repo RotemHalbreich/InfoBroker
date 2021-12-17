@@ -1,21 +1,21 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { windowWidth } from '../utils/Dimensions';
 
-export default function ListItem({photo, title, subTitle, isFree, price}) {
+export default function ListItem({ photo, title, subTitle, isFree, price }) {
   return (
     <View style={{
-      flexDirection:'row',
+      flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: 10,
     }}>
-      <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
         <Image
           source={photo}
-          style={{width: 55, height: 55, borderRadius: 10, marginRight: 8}}
+          style={{ width: 55, height: 55, borderRadius: 10, marginRight: 8 }}
         />
-        <View style={{width: windowWidth - 220}}>
+        <View style={{ width: windowWidth - 220 }}>
           <Text
             style={{
               color: '#333',
@@ -38,8 +38,8 @@ export default function ListItem({photo, title, subTitle, isFree, price}) {
       </View>
 
       <TouchableOpacity style={{
-        backgroundColor:'#496cfa',
-        padding:10,
+        backgroundColor: '#496cfa',
+        padding: 10,
         width: 100,
         borderRadius: 10,
       }}>

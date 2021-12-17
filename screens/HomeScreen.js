@@ -49,8 +49,7 @@ const HomeScreen = () => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: 20,
-            marginBottom: 10,
+            marginBottom: 20,
           }}>
           <Text style={{ fontSize: 16, fontFamily: 'Roboto-Medium' }}>
             Welcome,  {auth.currentUser?.email}!
@@ -65,14 +64,7 @@ const HomeScreen = () => {
         </View>
 
         <View
-          style={{
-            flexDirection: 'row',
-            borderColor: '#C6C6C6',
-            borderWidth: 1,
-            borderRadius: 8,
-            paddingHorizontal: 10,
-            paddingVertical: 8,
-          }}>
+          style={styles.searchBar}>
           <Feather
             name="search"
             size={20}
@@ -153,18 +145,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  button: {
-    backgroundColor: '#496cfa',
-    width: '60%',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 40,
-  },
-
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 18,
+  searchBar: {
+    flexDirection: 'row',
+    borderColor: '#C6C6C6',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
   },
 })

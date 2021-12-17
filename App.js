@@ -7,8 +7,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CustomDrawer from './components/CustomDrawer.js';
 
+import CustomDrawer from './components/CustomDrawer.js';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen.js';
@@ -25,7 +25,11 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
         screenOptions={{
-          headerShown: false,
+          // headerShown: false,
+          headerStyle: {
+            backgroundColor: '#496cfa',
+          },
+          headerTintColor: '#fff',
           drawerActiveBackgroundColor: '#496cfa',
           drawerActiveTintColor: '#fff',
           drawerInactiveTintColor: '#333',

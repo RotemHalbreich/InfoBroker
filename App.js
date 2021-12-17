@@ -16,13 +16,17 @@ import AnalyzeScreen from './screens/AnalyzeScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import AboutScreen from './screens/AboutScreen';
+import StackScreen from './screens/StackScreen.js';
+import SignInScreen from './screens/SignInScreen.js';
+import SignUpScreen from './screens/SignUpScreen.js';
 
-// const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
+      {/* <StackScreen/> */}
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
         screenOptions={{
           // headerShown: false,
@@ -40,8 +44,9 @@ export default function App() {
           },
         }}>
         <Drawer.Screen
-          name="Login" component={LoginScreen}
+          name="Login" component={SignInScreen}
           options={{
+            headerShown: false,
             drawerIcon: ({ color }) => (
               <Ionicons name="log-in-outline" size={22} color={color}
               />

@@ -25,7 +25,7 @@ const CustomDrawer = (props) => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: '#496cfa' }}>
+        contentContainerStyle={{ backgroundColor: '#05375a' }}>
         <ImageBackground
           source={require('../assets/images/sidebar.jpg')}
           style={{ padding: 20 }}>
@@ -44,7 +44,7 @@ const CustomDrawer = (props) => {
             <FontAwesome5 style={{ marginEnd: 10 }} name="hand-holding-usd" size={18} color="#fff" />
             <Text
               style={styles.subtitle}>
-              Welcome to InfoBroker
+              Preferences
             </Text>
           </View>
         </ImageBackground>
@@ -68,7 +68,7 @@ const CustomDrawer = (props) => {
             <Text
               style={{
                 fontSize: 15,
-                fontFamily: 'Roboto-Medium',
+                // fontFamily: 'Roboto-Medium',
                 marginLeft: 5,
               }}>
               Sign Out
@@ -107,20 +107,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: '700',
-    fontFamily: 'Roboto-Medium',
+    // fontFamily: 'Roboto-Medium',
     marginBottom: 5,
   },
 
   subtitle: {
     color: '#fff',
     fontSize: 15,
-    fontFamily: 'Roboto-Regular',
+    // fontFamily: 'Roboto-Regular',
     marginRight: 5,
   },
 
   shareButton: {
     fontSize: 15,
-    fontFamily: 'Roboto-Medium',
+    // fontFamily: 'Roboto-Medium',
     marginLeft: 5,
   }
 

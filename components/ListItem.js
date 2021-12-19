@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { windowWidth } from '../utils/Dimensions';
 
-export default function ListItem({ photo, title, subTitle, isFree, price }) {
+export default function ListItem({ photo, title, subTitle, getInfo, Article }) {
   return (
     <View style={{
       flexDirection: 'row',
@@ -19,7 +19,7 @@ export default function ListItem({ photo, title, subTitle, isFree, price }) {
           <Text
             style={{
               color: '#333',
-              fontFamily: 'Roboto-Medium',
+              // fontFamily: 'Roboto-Medium',
               fontSize: 14,
             }}>
             {subTitle}
@@ -28,7 +28,7 @@ export default function ListItem({ photo, title, subTitle, isFree, price }) {
             numberOfLines={1}
             style={{
               color: '#333',
-              fontFamily: 'Roboto-Medium',
+              // fontFamily: 'Roboto-Medium',
               fontSize: 14,
               textTransform: 'uppercase',
             }}>
@@ -38,7 +38,7 @@ export default function ListItem({ photo, title, subTitle, isFree, price }) {
       </View>
 
       <TouchableOpacity style={{
-        backgroundColor: '#496cfa',
+        backgroundColor: '#014576',
         padding: 10,
         width: 100,
         borderRadius: 10,
@@ -46,11 +46,11 @@ export default function ListItem({ photo, title, subTitle, isFree, price }) {
         <Text style={{
           color: '#fff',
           textAlign: 'center',
-          fontFamily: 'Roboto-Medium',
+          // fontFamily: 'Roboto-Medium',
           fontSize: 14,
         }}>
-          {isFree == 'Yes' && 'Get info'}
-          {isFree == 'No' && price}
+          {getInfo == 'Yes' && 'Get info'}
+          {Article == 'Yes' && 'Article'}
         </Text>
       </TouchableOpacity>
     </View>

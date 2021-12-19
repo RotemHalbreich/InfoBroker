@@ -16,7 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const SignInScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
 
   const [data, setData] = useState({
     username: '',
@@ -73,7 +73,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#496cfa' barStyle="light-content" />
+      <StatusBar backgroundColor='#014576' barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Register Now!</Text>
       </View>
@@ -149,7 +149,7 @@ const SignInScreen = ({ navigation }) => {
           <View style={styles.action}>
             <Feather
               name="lock"
-              color="#05375a"
+              color="#014576"
               size={20}
             />
             <TextInput
@@ -185,13 +185,14 @@ const SignInScreen = ({ navigation }) => {
             <Text style={styles.color_textPrivate}>{" "}and</Text>
             <Text style={[styles.color_textPrivate, { fontWeight: 'bold' }]}>{" "}Privacy policy</Text>
           </View>
+
           <View style={styles.button}>
             <TouchableOpacity
               style={styles.signIn}
               onPress={() => { }}
             >
               <LinearGradient
-                colors={['#08d4c4', '#01ab9d']}
+                colors={['#69a7d0', '#092f80']}
                 style={styles.signIn}
               >
                 <Text style={[styles.textSign, {
@@ -203,13 +204,13 @@ const SignInScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={[styles.signIn, {
-                borderColor: '#496cfa',
+                borderColor: '#014576',
                 borderWidth: 1,
                 marginTop: 15
               }]}
             >
               <Text style={[styles.textSign, {
-                color: '#496cfa'
+                color: '#014576'
               }]}>Sign In</Text>
             </TouchableOpacity>
           </View>
@@ -219,12 +220,12 @@ const SignInScreen = ({ navigation }) => {
   );
 };
 
-export default SignInScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#496cfa'
+    backgroundColor: '#014576'
   },
   header: {
     flex: 1,
@@ -243,10 +244,10 @@ const styles = StyleSheet.create({
   text_header: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 30
+    fontSize: 40
   },
   text_footer: {
-    color: '#05375a',
+    color: '#014576',
     fontSize: 18
   },
   action: {
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
-    color: '#05375a',
+    color: '#014576',
   },
   button: {
     alignItems: 'center',

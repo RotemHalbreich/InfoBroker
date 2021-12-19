@@ -92,31 +92,55 @@ const SignInScreen = ({ navigation }) => {
 
   const loginHandle = (userName, password) => {
 
-    const foundUser = Users.filter(item => {
-      return userName == item.username && password == item.password;
-    });
+    // const foundUser = Users.filter(item => {
+    //   return userName == item.username && password == item.password;
+    // });
 
-    if (data.username.length == 0 || data.password.length == 0) {
-      Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-        { text: 'Okay' }
-      ]);
-      return;
-    }
+    // if (data.username.length == 0 || data.password.length == 0) {
+    //   Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
+    //     { text: 'Okay' }
+    //   ]);
+    //   return;
+    // }
 
-    if (foundUser.length == 0) {
-      Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-        { text: 'Okay' }
-      ]);
-      return;
-    }
-    signIn(foundUser);
+    // if (foundUser.length == 0) {
+    //   Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+    //     { text: 'Okay' }
+    //   ]);
+    //   return;
+    // }
+    // signIn(foundUser);
+    let status = 0;
+    let response = fetch("https://infobroker.herokuapp.com/api/auth/login", {
+      method: "POST",
+      mode: "no-cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "email": userName,
+        "password": password
+      }),
+    }).then(response => response.json())
+      .then(data => {
+        if (data.status == 200) {
+          navigation.navigate("Home")
+        }
+        else {
+
+        }
+      })
+    // .catch(error => alert(error.message))
+
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#496cfa' barStyle="light-content" />
+      <StatusBar backgroundColor='#014576' barStyle="light-content" />
       <View style={styles.header}>
-        <Text style={styles.text_header}>Welcome to InfoBroker!</Text>
+        <Text style={styles.text_header}>Login</Text>
       </View>
       <Animatable.View
         animation="fadeInUpBig"
@@ -134,7 +158,7 @@ const SignInScreen = ({ navigation }) => {
             size={20}
           />
           <TextInput
-            placeholder="Insert Username"
+            placeholder="Your Username"
             placeholderTextColor="#666666"
             style={[styles.textInput, {
               color: colors.text
@@ -208,7 +232,7 @@ const SignInScreen = ({ navigation }) => {
 
 
         <TouchableOpacity>
-          <Text style={{ color: '#496cfa', marginTop: 15 }}>Forgot password?</Text>
+          <Text style={{ color: '#014576', marginTop: 15 }}>Forgot password?</Text>
         </TouchableOpacity>
         <View style={styles.button}>
           <TouchableOpacity
@@ -216,7 +240,7 @@ const SignInScreen = ({ navigation }) => {
             onPress={() => { loginHandle(data.username, data.password) }}
           >
             <LinearGradient
-              colors={['#a3abeb', '#2161eb']}
+              colors={['#69a7d0', '#092f80']}
               style={styles.signIn}
             >
               <Text style={[styles.textSign, {
@@ -226,15 +250,15 @@ const SignInScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('SignUpScreen')}
+            onPress={() => navigation.navigate('Sign Up')}
             style={[styles.signIn, {
-              borderColor: '#496cfa',
+              borderColor: '#014576',
               borderWidth: 1,
               marginTop: 15
             }]}
           >
             <Text style={[styles.textSign, {
-              color: '#496cfa'
+              color: '#014576'
             }]}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -248,7 +272,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#496cfa'
+    backgroundColor: '#014576'
   },
   header: {
     flex: 1,

@@ -6,6 +6,7 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import CustomDrawer from './components/CustomDrawer.js';
@@ -16,35 +17,38 @@ import AnalyzeScreen from './screens/AnalyzeScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import AboutScreen from './screens/AboutScreen';
-import StackScreen from './screens/StackScreen.js';
-import SignInScreen from './screens/SignInScreen.js';
-import SignUpScreen from './screens/SignUpScreen.js';
+import StackNavigation from './navigation/StackNavigation.js';
+import BottomTab from './navigation/BottomTab.js';
 
-const Stack = createNativeStackNavigator();
+
+// const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+const AuthStack = ({navigation}) => (
+  <StackNavigation/>
+);
 
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <StackScreen/> */}
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
         screenOptions={{
           // headerShown: false,
           headerStyle: {
-            backgroundColor: '#496cfa',
+            backgroundColor: '#014576',
           },
           headerTintColor: '#fff',
-          drawerActiveBackgroundColor: '#496cfa',
+          drawerActiveBackgroundColor: '#014576',
           drawerActiveTintColor: '#fff',
           drawerInactiveTintColor: '#333',
           drawerLabelStyle: {
             marginLeft: -25,
-            fontFamily: 'Roboto-Medium',
+            // fontFamily: 'Bree Serif',
             fontSize: 15,
           },
         }}>
         <Drawer.Screen
-          name="Login" component={SignInScreen}
+          name="Sign In" component={AuthStack}
           options={{
             headerShown: false,
             drawerIcon: ({ color }) => (

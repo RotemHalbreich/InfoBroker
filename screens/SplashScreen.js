@@ -9,24 +9,34 @@ import {
   StatusBar,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
+// import { useFonts } from 'expo-font';
 
-// const { height } = Dimensions.get("screen");
-// const height_logo = height * 0.28;
+const { height } = Dimensions.get("screen");
+const height_logo = height * 0.58;
 
 const SplashScreen = ({ navigation }) => {
+
+  // const [loaded] = useFonts({
+  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
+  // });
+
+  // if (!loaded) {
+  //   return null;
+  // }
+
   const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <StatusBar backgroundColor='#0e1654' barStyle="light-content" />
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceIn"
-          duration= {1500}
-          source={require('../assets/images/user.png')}
+          duration={1500}
+          source={require('../assets/images/Broker.png')}
           style={styles.logo}
           resizeMode="stretch"
         />
@@ -39,12 +49,12 @@ const SplashScreen = ({ navigation }) => {
       >
         <Text style={[styles.title, {
           color: colors.text
-        }]}>Stay connected with everyone!</Text>
-        <Text style={styles.text}>Sign in with account</Text>
+        }]}>Welcome to InfoBroker!</Text>
+        <Text style={styles.text}>Sign in with your account</Text>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Sign In')}>
             <LinearGradient
-              colors={['#08d4c4', '#01ab9d']}
+              colors={['#69a7d0', '#092f80']}
               style={styles.signIn}
             >
               <Text style={styles.textSign}>Get Started</Text>
@@ -66,7 +76,7 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387'
+    backgroundColor: '#05375a'
   },
   header: {
     flex: 2,
@@ -82,13 +92,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30
   },
   logo: {
-    width: 40,
-    height: 40
+    width: height_logo,
+    height: height_logo
   },
   title: {
     color: '#05375a',
-    fontSize: 30,
-    fontWeight: 'bold'
+    fontSize: 35,
+    fontWeight: 'bold',
+    // fontFamily: 'BreeSerif',
   },
   text: {
     color: 'grey',
@@ -99,8 +110,8 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   signIn: {
-    width: 150,
-    height: 40,
+    width: 200,
+    height: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
@@ -108,6 +119,7 @@ const styles = StyleSheet.create({
   },
   textSign: {
     color: 'white',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 20,
   }
 });

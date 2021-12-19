@@ -21,7 +21,7 @@ export default function CustomSwitch({
         width: '100%',
         backgroundColor: '#e4e4e4',
         borderRadius: 10,
-        borderColor: '#496cfa',
+        borderColor: '#014576',
         flexDirection: 'row',
         justifyContent: 'center',
       }}>
@@ -30,16 +30,16 @@ export default function CustomSwitch({
         onPress={() => updateSwitchData(1)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode == 1 ? '#496cfa' : '#e4e4e4',
+          backgroundColor: getSelectionMode == 1 ? '#014576' : '#e4e4e4',
           borderRadius: 10,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
         <Text
           style={{
-            color: getSelectionMode == 1 ? 'white' : '#496cfa',
+            color: getSelectionMode == 1 ? 'white' : '#014576',
             fontSize: 14,
-            fontFamily: 'Roboto-Medium',
+            // fontFamily: 'Roboto-Medium',
           }}>
           {option1}
         </Text>
@@ -49,16 +49,16 @@ export default function CustomSwitch({
         onPress={() => updateSwitchData(2)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode == 2 ? '#496cfa' : '#e4e4e4',
+          backgroundColor: getSelectionMode == 2 ? '#014576' : '#e4e4e4',
           borderRadius: 10,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
         <Text
           style={{
-            color: getSelectionMode == 2 ? 'white' : '#496cfa',
+            color: getSelectionMode == 2 ? 'white' : '#014576',
             fontSize: 14,
-            fontFamily: 'Roboto-Medium',
+            // fontFamily: 'Roboto-Medium',
           }}>
           {option2}
         </Text>

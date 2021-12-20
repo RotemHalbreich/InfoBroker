@@ -1,5 +1,6 @@
 
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   Drawer,
@@ -20,7 +21,15 @@ import { auth } from '../firebase.js'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+
+
 const CustomDrawer = (props) => {
+  const signOutUser = async ()=> {
+    await AsyncStorage.removeItem('token')
+    props.navigation.navigate('Sign In')
+
+
+  }
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -40,13 +49,7 @@ const CustomDrawer = (props) => {
               {auth.currentUser?.email}
             </Text>
           </View>
-          {/* <View style={{ flexDirection: 'row' }}>
-            <FontAwesome5 style={{ marginEnd: 10 }} name="hand-holding-usd" size={18} color="#fff" />
-            <Text
-              style={styles.subtitle}>
-              Preferences
-            </Text>
-          </View> */}
+
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 10 }}>
           <DrawerItemList {...props} />
@@ -62,13 +65,12 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={() => { signOutUser()}} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Ionicons name="exit-outline" size={22} />
             <Text
               style={{
                 fontSize: 15,
-                // fontFamily: 'Roboto-Medium',
                 marginLeft: 5,
               }}>
               Sign Out

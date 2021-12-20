@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, createContext , useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
@@ -23,6 +23,7 @@ import Users from '../model/users';
 
 const AuthContext = createContext('');
 
+
 const SignInScreen = ({ navigation }) => {
 
   const [email, setEmail] = useState('')
@@ -38,6 +39,7 @@ const SignInScreen = ({ navigation }) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     return reg.test(email)
   }
+
 
 
   const loginHandle = async () => {

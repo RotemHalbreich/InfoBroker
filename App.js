@@ -1,4 +1,3 @@
-
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import 'react-native-gesture-handler';
@@ -31,8 +30,9 @@ const AuthStack = ({ navigation }) => (
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
-        screenOptions={{
+      <Drawer.Navigator 
+          drawerContent={props => <CustomDrawer {...props}/>}
+          screenOptions={{
           headerShown: false,
           headerStyle: {
             backgroundColor: '#014576',
@@ -43,25 +43,15 @@ export default function App() {
           drawerInactiveTintColor: '#333',
           drawerLabelStyle: {
             marginLeft: -25,
-            // fontFamily: 'Bree Serif',
             fontSize: 15,
           },
         }}>
-        {/* <Drawer.Screen
-          name="Sign In" component={AuthStack}
-          options={{
-            headerShown: false,
-            drawerIcon: ({ color }) => (
-              <Ionicons name="log-in-outline" size={22} color={color}
-              />
-            ),
-          }}
-        /> */}
+       
 
         <Drawer.Screen
           screenOptions={{ headerShown: false }}
           name="Home"
-          component={AuthStack}
+          component={HomeScreen}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color}
@@ -69,7 +59,6 @@ export default function App() {
             ),
           }}
         />
-
         <Drawer.Screen
           name="Profile"
           component={ProfileScreen}
@@ -114,6 +103,12 @@ export default function App() {
               <Ionicons name="information-circle-outline" size={22} color={color} />
             ),
           }}
+        />
+          <Drawer.Screen
+          screenOptions={{ headerShown: false }}
+          name="a"
+          component={AuthStack}
+          
         />
 
       </Drawer.Navigator>

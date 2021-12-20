@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   inputContainer: {
     width: '80%'
   },

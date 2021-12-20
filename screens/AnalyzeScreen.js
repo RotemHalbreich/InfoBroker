@@ -47,13 +47,7 @@ const AnalyzeScreen = () => {
                   <Text>Market State: {item.marketState}</Text>
                 </View> 
     );}
-    
-
-  
-
  
-
-
 
 
   return (
@@ -62,26 +56,25 @@ const AnalyzeScreen = () => {
         <View>
           <Text style={styles.title}>Stock Analysis</Text>
 
-
-
           <View style={styles.view}>
             <SearchBar
-              placeholder="Search Symbol"
+             inputStyle={{backgroundColor: '#bde'}}
+             containerStyle={{backgroundColor: '#bde', borderWidth: 1, borderRadius: 5}}
+             inputContainerStyle={{backgroundColor: '#bde'}}
+             placeholderTextColor={'#bde'}
+             placeholder={'Search Symbol...'}
               onChangeText={(val) => { setSearch(val);  }}
               value={search}
-              containerStyle= {styles.searchBar}
-              autoCorrect={false}
-              lightTheme
+              platform={Platform.OS}
               round
+              placeholderTextColor={'#011'}
               onSubmitEditing = {()=>setUpdate((update)=>!update)}
-
-
             ></SearchBar>
           </View>
 
           <FlatList
             data={data}
-            // keyExtractor={(item, index) => { return item.symbol }}
+            keyExtractor={(item, index) => { return item.symbol }}
             renderItem={({ item, index }) => displayResults( item, index )}
           />
    
@@ -98,10 +91,11 @@ export default AnalyzeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#bde',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  
   // footer: {
   //   flex: 1,
   //   backgroundColor: '#fff',

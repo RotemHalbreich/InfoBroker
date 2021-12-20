@@ -4,93 +4,35 @@ import Feather from 'react-native-vector-icons/Feather';
 import { Table, TableWrapper, Row } from 'react-native-table-component';
 import apiReq from '../utils/axios';
 import { SearchBar } from 'react-native-elements';
-const jsonURL = "https://infobroker.herokuapp.com/api/stock/getCurrStockData?symbol=AAPL";
+import {List, ListItem} from 'react-native-elements';
+const jsonURL = "https://infobroker.herokuapp.com/api/stock/getCurrStockData?symbol=";
+
+
+
+
+
 
 const AnalyzeScreen = () => {
 
   // const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-
+  const [update, setUpdate] = useState(false)
   useEffect(() => {
-    // console.log("aa");
-    // // setData({ loading: true })
-    // const response = await apiReq.get('/stock/getCurrStockData?symbol=AAPL')
-    // // console.log(response.data.stocks);
-    // setData({ loading: false })
-    // console.log(".");
-
-    // fetch("https://infobroker.herokuapp.com/api/stock/getCurrStockData?symbol=AAPL", {
-    //   method: "GET",
-    // }).then(response => response.json())
-    //   .then(data => {
-    //     console.log(data.stocks.symbol);
-
-    //     setData({
-    //       "symbol": data.stocks.symbol,
-    //       "longName": data.stocks.longName,
-    //       "regularMarketDayHigh": data.stocks.regularMarketDayHigh,
-    //       "regularMarketDayLow": data.stocks.regularMarketDayLow,
-    //       "regularMarketDayRange": data.stocks.regularMarketDayRange,
-    //       "regularMarketVolume": data.stocks.regularMarketVolume,
-    //       "regularMarketOpen": data.stocks.regularMarketOpen,
-    //       "fiftyDayAverage": data.stocks.fiftyDayAverage,
-    //       "marketState": data.stocks.marketState,
-    //       "averageAnalystRating": data.stocks.averageAnalystRating,
-    //       "regularMarketPreviousClose": data.stocks.regularMarketPreviousClose,
-    //       "fiftyTwoWeekRange": data.stocks.fiftyTwoWeekRange
-    //     }
-    //     )
-
-    //   }).catch((err) => alert(err))
-    //   .finally(setLoading(false));
-
-
-    fetch(jsonURL)
+    search.toUpperCase
+    fetch(jsonURL + search)
       .then((response) => response.json())
       .then((json) => {
         setData(json.stocks);
         console.log(json.stocks);
       })
-
-    // .catch((err) => alert(err))
-    // .finally(() => setLoading(false));
-  }, []);
-  const resp = () => { (console.log(search)) };
-
-  return (
-    <SafeAreaView style={styles.container}>
-      {data.length < 1 ? <ActivityIndicator /> :
-        <View>
-          <Text style={styles.title}>Stock Analysis</Text>
-          {/* <View
-            style={styles.searchBar}>
-            <Feather
-              name="search"
-              size={20}
-              color="#C6C6C6"
-              style={{ marginRight: 5 }}
-            />
-            <TextInput placeholder="Search Symbol" />
-          </View> */}
-          <View style={styles.view}>
-            <SearchBar
-              placeholder="Search Symbol"
-              onChangeText={(val) => { setSearch(val); resp() }}
-              value={search}
-
-            ></SearchBar>
+  }, [update]);
 
 
-
-          </View>
-
-          <FlatList
-            data={data}
-            keyExtractor={(item, index) => { return item.symbol }}
-            renderItem={({ item, index }) => (
-              <View>
-                <View style={styles.text}>
+  const displayResults = (item, index) => {
+   if(!item){return null} 
+    return (
+               <View>
                   <Text>Symbol: {item.symbol}</Text>
                   <Text>Name: {item.longName}</Text>
                   <Text>Day's High: {item.regularMarketDayHigh}</Text>
@@ -103,25 +45,47 @@ const AnalyzeScreen = () => {
                   <Text>52 Week Range: {item.fiftyTwoWeekRange}</Text>
                   <Text>Recommendation Rating: {item.averageAnalystRating}</Text>
                   <Text>Market State: {item.marketState}</Text>
-                </View>
+                </View> 
+    );}
+    
 
-                {/* <Text style={styles.text}>
-                  Symbol: {item.symbol}{"\n"}
-                  Name: {item.longName}{"\n"}
-                  Day's High: {item.regularMarketDayHigh}{"\n"}
-                  Day's Low: {item.regularMarketDayLow}{"\n"}
-                  Day's Range: {item.regularMarketDayRange}{"\n"}
-                  Volume: {item.regularMarketVolume}{"\n"}
-                  Open: {item.regularMarketOpen}{"\n"}
-                  Previous Close: {item.regularMarketPreviousClose}{"\n"}
-                  50 Day Average: {item.fiftyDayAverage}{"\n"}
-                  52 Week Range: {item.fiftyTwoWeekRange}{"\n"}
-                  Recommendation Rating: {item.averageAnalystRating}{"\n"}
-                  Market State: {item.marketState}{"\n"}
-                </Text> */}
-              </View>
-            )}
+  
+
+ 
+
+
+
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {
+        <View>
+          <Text style={styles.title}>Stock Analysis</Text>
+
+
+
+          <View style={styles.view}>
+            <SearchBar
+              placeholder="Search Symbol"
+              onChangeText={(val) => { setSearch(val);  }}
+              value={search}
+              containerStyle= {styles.searchBar}
+              autoCorrect={false}
+              lightTheme
+              round
+              onSubmitEditing = {()=>setUpdate((update)=>!update)}
+
+
+            ></SearchBar>
+          </View>
+
+          <FlatList
+            data={data}
+            // keyExtractor={(item, index) => { return item.symbol }}
+            renderItem={({ item, index }) => displayResults( item, index )}
           />
+   
+
         </View>
       }
     </SafeAreaView >
@@ -161,6 +125,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     display: 'flex',
     alignItems: 'center',
+  },
+  inputContainer: {
+    width: '80%'
   },
   searchBar: {
     flexDirection: 'row',

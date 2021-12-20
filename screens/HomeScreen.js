@@ -4,13 +4,15 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View, SafeAreaView,
+  View,
+  SafeAreaView,
   ScrollView,
   ImageBackground,
   TextInput,
 } from 'react-native'
 import Carousel from 'react-native-snap-carousel';
 import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { auth } from '../firebase.js'
 import { signOut } from 'firebase/auth'
@@ -20,6 +22,8 @@ import { insights, news, sliderData } from '../model/data.js'
 import BannerSlider from '../components/BannerSlider';
 import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
+import { FontAwesome } from 'react-native-vector-icons/FontAwesome';
+
 
 const HomeScreen = () => {
 
@@ -34,13 +38,13 @@ const HomeScreen = () => {
     setSymbolsTab(value);
   };
 
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        navigation.replace("Login")
-      })
-      .catch(error => alert(error.message))
-  }
+  // const handleSignOut = () => {
+  //   signOut(auth)
+  //     .then(() => {
+  //       navigation.replace("Login")
+  //     })
+  //     .catch(error => alert(error.message))
+  // }
 
   return (
     // <SafeAreaView style={styles.container}>
@@ -49,10 +53,9 @@ const HomeScreen = () => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginBottom: 20,
         }}>
-        <Text style={{ fontSize: 16, /*fontFamily: 'Roboto-Medium'*/ }}>
-          Welcome,  {auth.currentUser?.email}!
+        <Text style={styles.user}>
+          Welcome, {auth.currentUser?.email}!
         </Text>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <ImageBackground
@@ -63,29 +66,19 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <View
-        style={styles.searchBar}>
-        <Feather
-          name="search"
-          size={20}
-          color="#C6C6C6"
-          style={{ marginRight: 5 }}
-        />
-        <TextInput placeholder="Search Symbol" />
-      </View>
 
       <View
-        style={{
-          marginVertical: 15,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <Text style={{ fontSize: 16, /*fontFamily: 'Roboto-Medium'*/ }}>
+        style={styles.recommends}>
+        <Ionicons
+          name="bookmarks"
+          color="#05375a"
+          size={25} />
+        <Text style={styles.header}>
           Recommended Symbols
         </Text>
-        <TouchableOpacity onPress={() => { }}>
+        {/* <TouchableOpacity onPress={() => { }}>
           <Text style={{ color: '#1f78ed' }}>See all</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <Carousel
@@ -144,12 +137,25 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  searchBar: {
-    flexDirection: 'row',
-    borderColor: '#C6C6C6',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontVariant: ['small-caps'],
+    color: '#014576',
+    marginLeft: 15
   },
+
+  user: {
+    fontSize: 16,
+    fontWeight: '400',
+    fontVariant: ['small-caps'],
+  },
+
+  recommends: {
+    marginVertical: 10,
+    flexDirection: 'row',
+    marginLeft: 5
+  },
+
+
 })

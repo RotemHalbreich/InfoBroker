@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import apiReq from '../utils/axios'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   View,
   Text,
@@ -16,96 +19,114 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 
+
 const SignUpScreen = ({ navigation }) => {
 
-  const [data, setData] = useState({
-    username: '',
-    password: '',
-    confirm_password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-    confirm_secureTextEntry: true,
-  });
+  const [fisrtName, setfirstName] = useState('')
+  const [lastName, setlastName] = useState('')
+  const [Email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [ConfirmedPassword, setConfirmedPassword] = useState('')
+  const [isError , setError] = useState(false)
+  const [errorMsg , setErrorMsg] = useState('')
 
-  const textInputChange = (val) => {
-    if (val.length !== 0) {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: true
-      });
-    } else {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: false
-      });
+  const emailValidation = () =>{
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    return reg.test(Email)
+  }
+
+  const signupHandle =async () => {
+    if(!fisrtName || !lastName || !Email || !password || !ConfirmedPassword){
+      setErrorMsg("Please fill all the fields, try again.")
+      setError(true)
+      return
+    }
+    if(password != ConfirmedPassword){
+      setErrorMsg("Passwords does not match, try again.")
+      setError(true)
+      return
+    }
+    if (!emailValidation()){
+      setErrorMsg("The given E-mail is not valid!, try again.")
+      setError(true)
+      return
+    }
+
+    try{
+      const response = await apiReq.post('/auth/register', 
+      {"first_name" : fisrtName, "last_name" : lastName,"email": Email, "password": password, "admin": "false"})
+        await AsyncStorage.setItem('token', response.data.token);
+        navigation.navigate('Home')
+    }catch(err){
+      setErrorMsg("User already exists, Please log in")
+      setError(true)
+      return
     }
   }
 
-  const handlePasswordChange = (val) => {
-    setData({
-      ...data,
-      password: val
-    });
-  }
-
-  const handleConfirmPasswordChange = (val) => {
-    setData({
-      ...data,
-      confirm_password: val
-    });
-  }
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry
-    });
-  }
-
-  const updateConfirmSecureTextEntry = () => {
-    setData({
-      ...data,
-      confirm_secureTextEntry: !data.confirm_secureTextEntry
-    });
-  }
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor='#014576' barStyle="light-content" />
       <View style={styles.header}>
-        <Text style={styles.text_header}>Register Now!</Text>
+        <Text style={styles.text_header}>Registration</Text>
       </View>
       <Animatable.View
         animation="fadeInUpBig"
         style={styles.footer}
       >
+
+        
         <ScrollView>
-          <Text style={styles.text_footer}>Username</Text>
+        <Text style={styles.text_footer}>First Name</Text>
           <View style={styles.action}>
             <FontAwesome
-              name="user-o"
+              name="user-circle"
               color="#05375a"
               size={20}
             />
             <TextInput
-              placeholder="Your Username"
+              placeholder="Your First Name"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
+              onChangeText={(val) => {setError(false); setfirstName(val)}}
             />
-            {data.check_textInputChange ?
-              <Animatable.View
-                animation="bounceIn"
-              >
-                <Feather
-                  name="check-circle"
-                  color="green"
-                  size={20}
-                />
-              </Animatable.View>
-              : null}
+          </View>
+
+          <Text style={[styles.text_footer, {
+            marginTop: 35
+          }]}>Last Name</Text>
+          <View style={styles.action}>
+            <FontAwesome
+              name="user-circle"
+              color="#05375a"
+              size={20}
+            />
+            <TextInput
+              placeholder="Your Last Name"
+              style={styles.textInput}
+              autoCapitalize="none"
+              onChangeText={(val) => {setError(false); setlastName(val)}}
+            />
+          </View>
+          
+
+          
+          <Text style={[styles.text_footer, {
+            marginTop: 35
+          }]}>E-Mail</Text>
+          <View style={styles.action}>
+            <Feather
+              name="mail"
+              color="#05375a"
+              size={20}
+            />
+            <TextInput
+              placeholder="Your E-Mail"
+              style={styles.textInput}
+              autoCapitalize="none"
+              onChangeText={(val) => {setEmail(val); setError(false)}}
+            />
           </View>
 
           <Text style={[styles.text_footer, {
@@ -119,28 +140,12 @@ const SignUpScreen = ({ navigation }) => {
             />
             <TextInput
               placeholder="Your Password"
-              secureTextEntry={data.secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => handlePasswordChange(val)}
+              onChangeText={(val) => setPassword(val)}
+              secureTextEntry =  {true}
             />
-            <TouchableOpacity
-              onPress={updateSecureTextEntry}
-            >
-              {data.secureTextEntry ?
-                <Feather
-                  name="eye-off"
-                  color="grey"
-                  size={20}
-                />
-                :
-                <Feather
-                  name="eye"
-                  color="grey"
-                  size={20}
-                />
-              }
-            </TouchableOpacity>
+
           </View>
 
           <Text style={[styles.text_footer, {
@@ -154,42 +159,26 @@ const SignUpScreen = ({ navigation }) => {
             />
             <TextInput
               placeholder="Confirm Your Password"
-              secureTextEntry={data.confirm_secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => handleConfirmPasswordChange(val)}
+              onChangeText={(val) => {setError(false), setConfirmedPassword(val)}}
+              secureTextEntry =  {true}
+
             />
-            <TouchableOpacity
-              onPress={updateConfirmSecureTextEntry}
-            >
-              {data.secureTextEntry ?
-                <Feather
-                  name="eye-off"
-                  color="grey"
-                  size={20}
-                />
-                :
-                <Feather
-                  name="eye"
-                  color="grey"
-                  size={20}
-                />
-              }
-            </TouchableOpacity>
+          
           </View>
-          <View style={styles.textPrivate}>
-            <Text style={styles.color_textPrivate}>
-              By signing up you agree to our
-            </Text>
-            <Text style={[styles.color_textPrivate, { fontWeight: 'bold' }]}>{" "}Terms of service</Text>
-            <Text style={styles.color_textPrivate}>{" "}and</Text>
-            <Text style={[styles.color_textPrivate, { fontWeight: 'bold' }]}>{" "}Privacy policy</Text>
-          </View>
+          
+        {isError? <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>{errorMsg}</Text>
+          </Animatable.View> : null
+        }
+
+
 
           <View style={styles.button}>
             <TouchableOpacity
               style={styles.signIn}
-              onPress={() => { }}
+              onPress={() => {{signupHandle()} }}
             >
               <LinearGradient
                 colors={['#69a7d0', '#092f80']}
@@ -200,7 +189,7 @@ const SignUpScreen = ({ navigation }) => {
                 }]}>Sign Up</Text>
               </LinearGradient>
             </TouchableOpacity>
-
+                
             <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={[styles.signIn, {
@@ -263,6 +252,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: '#014576',
   },
+  errorMsg: {
+    color: '#FF0000',
+    fontSize: 14,
+  },
   button: {
     alignItems: 'center',
     marginTop: 50
@@ -286,4 +279,5 @@ const styles = StyleSheet.create({
   color_textPrivate: {
     color: 'grey'
   }
+
 });

@@ -24,8 +24,8 @@ import BottomTab from './navigation/BottomTab.js';
 // const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const AuthStack = ({navigation}) => (
-  <StackNavigation/>
+const AuthStack = ({ navigation }) => (
+  <StackNavigation />
 );
 
 export default function App() {
@@ -33,7 +33,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
         screenOptions={{
-          // headerShown: false,
+          headerShown: false,
           headerStyle: {
             backgroundColor: '#014576',
           },
@@ -47,7 +47,7 @@ export default function App() {
             fontSize: 15,
           },
         }}>
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="Sign In" component={AuthStack}
           options={{
             headerShown: false,
@@ -56,11 +56,12 @@ export default function App() {
               />
             ),
           }}
-        />
+        /> */}
 
         <Drawer.Screen
+          screenOptions={{ headerShown: false }}
           name="Home"
-          component={HomeScreen}
+          component={AuthStack}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color}

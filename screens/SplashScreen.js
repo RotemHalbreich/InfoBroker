@@ -15,7 +15,7 @@ import { useTheme } from '@react-navigation/native';
 // import { useFonts } from 'expo-font';
 
 const { height } = Dimensions.get("screen");
-const height_logo = height * 0.58;
+const height_logo = height * 0.5;
 
 const SplashScreen = ({ navigation }) => {
 
@@ -76,7 +76,7 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#05375a'
+    backgroundColor: '#0e1654'
   },
   header: {
     flex: 2,
@@ -97,8 +97,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#05375a',
-    fontSize: 35,
+    fontSize: 40,
     fontWeight: 'bold',
+    fontVariant: ['small-caps'],
     // fontFamily: 'BreeSerif',
   },
   text: {

@@ -40,13 +40,13 @@ const CustomDrawer = (props) => {
               {auth.currentUser?.email}
             </Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          {/* <View style={{ flexDirection: 'row' }}>
             <FontAwesome5 style={{ marginEnd: 10 }} name="hand-holding-usd" size={18} color="#fff" />
             <Text
               style={styles.subtitle}>
               Preferences
             </Text>
-          </View>
+          </View> */}
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 10 }}>
           <DrawerItemList {...props} />
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: '700',
+    fontVariant: ['small-caps'],
     // fontFamily: 'Roboto-Medium',
     marginBottom: 5,
   },

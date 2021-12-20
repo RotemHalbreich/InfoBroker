@@ -1,4 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -13,6 +14,8 @@ import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
+import apiReq from '../utils/axios'
+
 
 import { useTheme } from 'react-native-paper';
 
@@ -22,120 +25,56 @@ const AuthContext = createContext('');
 
 const SignInScreen = ({ navigation }) => {
 
-  const [data, setData] = useState({
-    username: '',
-    password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-    isValidUser: true,
-    isValidPassword: true,
-  });
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [iserror, setError] = useState(false)
+  const [errorMsg, setErrMsg] = useState('')
 
   const { colors } = useTheme();
 
   const { signIn } = useContext(AuthContext);
 
-  const textInputChange = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: true,
-        isValidUser: true
-      });
-    } else {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: false,
-        isValidUser: false
-      });
+  const emailValidation = () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    return reg.test(email)
+  }
+
+
+  const loginHandle = async () => {
+    if (!email || !password) {
+      setPassword('')
+      setEmail('')
+      setErrMsg("Error, Please fill the fields again")
+      setError(true)
+      return;
+    }
+    if (!emailValidation()) {
+      setEmail('')
+      setErrMsg("The given E-mail is invalid, please try again.")
+      setError(true)
+      return
+    }
+
+    try {
+      const response = await apiReq.post('/auth/login', { "email": email, "password": password })
+      if (response.data.token) {
+        await AsyncStorage.setItem('token', response.data.token);
+        navigation.navigate("Home")
+      } else {
+        setErrMsg("Somthing went wrong, please try again")
+        setError(true)
+      };
+
+    } catch (err) {
+      console.log(err);
+      setPassword('')
+      setEmail('')
+      setErrMsg("E-mail or Password is not correct, please try again.")
+      setError(true)
+      return;
+
     }
   }
-
-  const handlePasswordChange = (val) => {
-    if (val.trim().length >= 8) {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: true
-      });
-    } else {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: false
-      });
-    }
-  }
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry
-    });
-  }
-
-  const handleValidUser = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        isValidUser: true
-      });
-    } else {
-      setData({
-        ...data,
-        isValidUser: false
-      });
-    }
-  }
-
-  const loginHandle = (userName, password) => {
-
-    // const foundUser = Users.filter(item => {
-    //   return userName == item.username && password == item.password;
-    // });
-
-    // if (data.username.length == 0 || data.password.length == 0) {
-    //   Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-    //     { text: 'Okay' }
-    //   ]);
-    //   return;
-    // }
-
-    // if (foundUser.length == 0) {
-    //   Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-    //     { text: 'Okay' }
-    //   ]);
-    //   return;
-    // }
-    // signIn(foundUser);
-    let status = 0;
-    let response = fetch("https://infobroker.herokuapp.com/api/auth/login", {
-      method: "POST",
-      mode: "no-cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        "email": userName,
-        "password": password
-      }),
-    }).then(response => response.json())
-      .then(data => {
-        if (data.status == 200) {
-          navigation.navigate("Home")
-        }
-        else {
-
-        }
-      })
-    // .catch(error => alert(error.message))
-
-  }
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor='#014576' barStyle="light-content" />
@@ -148,86 +87,58 @@ const SignInScreen = ({ navigation }) => {
           backgroundColor: colors.background
         }]}
       >
-        <Text style={[styles.text_footer, {
-          color: colors.text
-        }]}>Username</Text>
+        <Text style={styles.text_footer}>
+          E-Mail
+        </Text>
         <View style={styles.action}>
-          <FontAwesome
-            name="user-o"
-            color={colors.text}
+          <Feather
+            name="mail"
+            color='#05375a'
             size={20}
+
           />
           <TextInput
-            placeholder="Your Username"
+            placeholder="Your E-Mail"
             placeholderTextColor="#666666"
             style={[styles.textInput, {
               color: colors.text
             }]}
             autoCapitalize="none"
-            onChangeText={(val) => textInputChange(val)}
-            onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
+            value={email}
+            onChangeText={(e) => { setError(false); setEmail(e) }}
           />
-          {data.check_textInputChange ?
-            <Animatable.View
-              animation="bounceIn"
-            >
-              <Feather
-                name="check-circle"
-                color="green"
-                size={20}
-              />
-            </Animatable.View>
-            : null}
-        </View>
-        {data.isValidUser ? null :
-          <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
-          </Animatable.View>
-        }
 
+        </View>
 
         <Text style={[styles.text_footer, {
-          color: colors.text,
           marginTop: 35
-        }]}>Password</Text>
+        }]}>
+          Password
+        </Text>
         <View style={styles.action}>
           <Feather
             name="lock"
-            color={colors.text}
+            color='#05375a'
             size={20}
           />
           <TextInput
             placeholder="Your Password"
             placeholderTextColor="#666666"
-            secureTextEntry={data.secureTextEntry ? true : false}
+            secureTextEntry={true}
             style={[styles.textInput, {
               color: colors.text
             }]}
+            value={password}
+
             autoCapitalize="none"
-            onChangeText={(val) => handlePasswordChange(val)}
+            onChangeText={(p) => { setError(false); setPassword(p) }}
           />
-          <TouchableOpacity
-            onPress={updateSecureTextEntry}
-          >
-            {data.secureTextEntry ?
-              <Feather
-                name="eye-off"
-                color="grey"
-                size={20}
-              />
-              :
-              <Feather
-                name="eye"
-                color="grey"
-                size={20}
-              />
-            }
-          </TouchableOpacity>
+
         </View>
-        {data.isValidPassword ? null :
-          <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
-          </Animatable.View>
+
+        {iserror ? <Animatable.View animation="fadeInLeft" duration={500}>
+          <Text style={styles.errorMsg}>{errorMsg}</Text>
+        </Animatable.View> : null
         }
 
 
@@ -237,7 +148,7 @@ const SignInScreen = ({ navigation }) => {
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}
-            onPress={() => { loginHandle(data.username, data.password) }}
+            onPress={() => { loginHandle() }}
           >
             <LinearGradient
               colors={['#69a7d0', '#092f80']}

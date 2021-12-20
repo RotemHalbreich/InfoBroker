@@ -6,6 +6,7 @@ const resolveAuthScreen =({ navigation })=>{
 
     const tryLocalSignIn = async ()=>{
       const token = await AsyncStorage.getItem('token');
+      console.log(token);
       if(token){
         navigation.navigate('Home')
       }else{navigation.navigate('Splash Screen')}

@@ -46,12 +46,17 @@ export default function App() {
             fontSize: 15,
           },
         }}>
-       
+       {/* <Drawer.Screen
+          screenOptions={{ headerShown: false }}
+          name="a"
+          component={AuthStack}
+          
+        /> */}
 
         <Drawer.Screen
           screenOptions={{ headerShown: false }}
           name="Home"
-          component={HomeScreen}
+          component={AuthStack}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color}
@@ -104,12 +109,7 @@ export default function App() {
             ),
           }}
         />
-          <Drawer.Screen
-          screenOptions={{ headerShown: false }}
-          name="a"
-          component={AuthStack}
           
-        />
 
       </Drawer.Navigator>
     </NavigationContainer>

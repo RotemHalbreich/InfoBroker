@@ -35,8 +35,8 @@ const AnalyzeScreen = () => {
                <View>
                   <Text>Symbol: {item.symbol}</Text>
                   <Text>Name: {item.longName}</Text>
-                  <Text>Day's High: {item.regularMarketDayHigh}</Text>
-                  <Text>Day's Low: {item.regularMarketDayLow}</Text>
+                  <Text>At Close {item.regularMarketPrice}</Text>
+                  <Text>Pre Market Price: {item.preMarketPrice}    ({item.preMarketChangePercent}%) </Text>
                   <Text>Day's Range: {item.regularMarketDayRange}</Text>
                   <Text>Volume: {item.regularMarketVolume}</Text>
                   <Text>Open: {item.regularMarketOpen}</Text>

@@ -16,10 +16,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 import apiReq from '../utils/axios'
 
-
 import { useTheme } from 'react-native-paper';
-
-import Users from '../model/users';
 
 const AuthContext = createContext('');
 

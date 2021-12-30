@@ -22,42 +22,42 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const SignUpScreen = ({ navigation }) => {
 
-  const [fisrtName, setfirstName] = useState('')
+  const [firstName, setfirstName] = useState('')
   const [lastName, setlastName] = useState('')
   const [Email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [ConfirmedPassword, setConfirmedPassword] = useState('')
-  const [isError , setError] = useState(false)
-  const [errorMsg , setErrorMsg] = useState('')
+  const [isError, setError] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const emailValidation = () =>{
+  const emailValidation = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     return reg.test(Email)
   }
 
-  const signupHandle =async () => {
-    if(!fisrtName || !lastName || !Email || !password || !ConfirmedPassword){
+  const signupHandle = async () => {
+    if (!firstName || !lastName || !Email || !password || !ConfirmedPassword) {
       setErrorMsg("Please fill all the fields, try again.")
       setError(true)
       return
     }
-    if(password != ConfirmedPassword){
+    if (password != ConfirmedPassword) {
       setErrorMsg("Passwords does not match, try again.")
       setError(true)
       return
     }
-    if (!emailValidation()){
+    if (!emailValidation()) {
       setErrorMsg("The given E-mail is not valid!, try again.")
       setError(true)
       return
     }
 
-    try{
-      const response = await apiReq.post('/auth/register', 
-      {"first_name" : fisrtName, "last_name" : lastName,"email": Email, "password": password, "admin": "false"})
-        await AsyncStorage.setItem('token', response.data.token);
-        navigation.navigate('Home')
-    }catch(err){
+    try {
+      const response = await apiReq.post('/auth/register',
+        { "first_name": firstName, "last_name": lastName, "email": Email, "password": password, "admin": "false" })
+      await AsyncStorage.setItem('token', response.data.token);
+      navigation.navigate('Home')
+    } catch (err) {
       setErrorMsg("User already exists, Please log in")
       setError(true)
       return
@@ -76,9 +76,9 @@ const SignUpScreen = ({ navigation }) => {
         style={styles.footer}
       >
 
-        
+
         <ScrollView>
-        <Text style={styles.text_footer}>First Name</Text>
+          <Text style={styles.text_footer}>First Name</Text>
           <View style={styles.action}>
             <FontAwesome
               name="user-circle"
@@ -89,7 +89,7 @@ const SignUpScreen = ({ navigation }) => {
               placeholder="Your First Name"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => {setError(false); setfirstName(val)}}
+              onChangeText={(val) => { setError(false); setfirstName(val) }}
             />
           </View>
 
@@ -106,12 +106,12 @@ const SignUpScreen = ({ navigation }) => {
               placeholder="Your Last Name"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => {setError(false); setlastName(val)}}
+              onChangeText={(val) => { setError(false); setlastName(val) }}
             />
           </View>
-          
 
-          
+
+
           <Text style={[styles.text_footer, {
             marginTop: 35
           }]}>E-Mail</Text>
@@ -125,7 +125,7 @@ const SignUpScreen = ({ navigation }) => {
               placeholder="Your E-Mail"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => {setEmail(val); setError(false)}}
+              onChangeText={(val) => { setEmail(val); setError(false) }}
             />
           </View>
 
@@ -143,7 +143,7 @@ const SignUpScreen = ({ navigation }) => {
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={(val) => setPassword(val)}
-              secureTextEntry =  {true}
+              secureTextEntry={true}
             />
 
           </View>
@@ -161,24 +161,24 @@ const SignUpScreen = ({ navigation }) => {
               placeholder="Confirm Your Password"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => {setError(false), setConfirmedPassword(val)}}
-              secureTextEntry =  {true}
+              onChangeText={(val) => { setError(false), setConfirmedPassword(val) }}
+              secureTextEntry={true}
 
             />
-          
+
           </View>
-          
-        {isError? <Animatable.View animation="fadeInLeft" duration={500}>
+
+          {isError ? <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>{errorMsg}</Text>
           </Animatable.View> : null
-        }
+          }
 
 
 
           <View style={styles.button}>
             <TouchableOpacity
               style={styles.signIn}
-              onPress={() => {{signupHandle()} }}
+              onPress={() => { { signupHandle() } }}
             >
               <LinearGradient
                 colors={['#69a7d0', '#092f80']}
@@ -189,7 +189,7 @@ const SignUpScreen = ({ navigation }) => {
                 }]}>Sign Up</Text>
               </LinearGradient>
             </TouchableOpacity>
-                
+
             <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={[styles.signIn, {

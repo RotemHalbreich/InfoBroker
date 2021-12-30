@@ -14,7 +14,7 @@ import Carousel from 'react-native-snap-carousel';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { auth } from '../firebase.js'
+// import { auth } from '../firebase.js'
 import { signOut } from 'firebase/auth'
 import { windowWidth } from '../utils/Dimensions';
 
@@ -23,6 +23,7 @@ import BannerSlider from '../components/BannerSlider';
 import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
 import { FontAwesome } from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 const HomeScreen = () => {
@@ -55,13 +56,19 @@ const HomeScreen = () => {
           justifyContent: 'space-between',
         }}>
         <Text style={styles.user}>
-          Welcome, {auth.currentUser?.email}!
+          Welcome  Rotem!
         </Text>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <ImageBackground
+          {/* <ImageBackground
             source={require('../assets/images/user.jpg')}
-            style={{ width: 35, height: 35 }}
+            style={{ width: 35, height: 35, marginTop: 20 }}
             imageStyle={{ borderRadius: 25 }}
+          /> */}
+          <MaterialIcons
+            name="menu"
+            style={{ width: 35, height: 35, marginTop: 20 }}
+            size={40}
+            color={'#014576'}
           />
         </TouchableOpacity>
       </View>
@@ -146,9 +153,12 @@ const styles = StyleSheet.create({
   },
 
   user: {
-    fontSize: 16,
-    fontWeight: '400',
+    fontSize: 25,
+    fontWeight: 'bold',
     fontVariant: ['small-caps'],
+    marginTop: 27,
+    marginLeft: 10,
+    color: '#1e83cb',
   },
 
   recommends: {
@@ -156,6 +166,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 5
   },
-
-
 })

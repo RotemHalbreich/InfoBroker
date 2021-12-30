@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   Image,
   TouchableOpacity,
   TouchableRipple,
+  Share,
 } from 'react-native';
 import {
   DrawerContentScrollView,
@@ -17,19 +18,81 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 
-import { auth } from '../firebase.js'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import * as ImagePicker from 'expo-image-picker';
+import UserPermissions from '../utils/UserPermissions.js';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+
 
 
 
 const CustomDrawer = (props) => {
-  const signOutUser = async ()=> {
+
+  const [image, setImage] = useState(null);
+
+  // const pickImage = async () => {
+  //   // No permissions request is necessary for launching the image library
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+
+  //   console.log(result);
+
+  //   if (!result.cancelled) {
+  //     setImage(result.uri);
+  //   }
+  // };
+
+  // state = {
+  //   user: {
+  //     avatar: null
+  //   }
+  // }
+
+  const handleAvatar = async () => {
+    UserPermissions.getCameraPermission();
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    })
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  // const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'This is your shared message!',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const signOutUser = async () => {
     await AsyncStorage.removeItem('token')
     props.navigation.navigate('Sign In')
-
-
-  }
+  };
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -38,15 +101,30 @@ const CustomDrawer = (props) => {
         <ImageBackground
           source={require('../assets/images/sidebar.jpg')}
           style={{ padding: 20 }}>
-          <Image
-            source={require('../assets/images/user.png')}
-            style={styles.userImage}
-          />
-          <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity onPress={handleAvatar}>
+
+            {
+              image ? <Image source={{ uri: image }} style={styles.userImage} /> :
+                <>
+                  <Image
+                    source={require('../assets/images/blank.png')}
+                    style={styles.userImage}
+                  />
+                  <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 20 }}>
+                    <MaterialIcons name="add-a-photo" size={22} color={'white'} />
+                    <Text
+                      style={styles.addAvatarPhoto}>
+                      Pick Profile Picture
+                    </Text>
+                  </View>
+                </>
+            }
+          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <FontAwesome5 style={{ marginEnd: 12 }} name="user-tie" size={20} color="#fff" />
             <Text
               style={styles.username}>
-              {auth.currentUser?.email}
+              My Username
             </Text>
           </View>
 
@@ -56,7 +134,7 @@ const CustomDrawer = (props) => {
         </View>
       </DrawerContentScrollView>
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-        <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={onShare} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Ionicons name="share-social-outline" size={22} />
             <Text
@@ -65,7 +143,7 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { signOutUser()}} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={() => { signOutUser() }} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Ionicons name="exit-outline" size={22} />
             <Text
@@ -101,17 +179,16 @@ const styles = StyleSheet.create({
   userImage: {
     height: 80,
     width: 80,
-    borderRadius: 40,
+    borderRadius: 100,
     marginBottom: 10,
   },
 
   username: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '700',
     fontVariant: ['small-caps'],
     // fontFamily: 'Roboto-Medium',
-    marginBottom: 5,
   },
 
   subtitle: {
@@ -125,6 +202,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     // fontFamily: 'Roboto-Medium',
     marginLeft: 5,
+  },
+
+  addAvatarPhoto: {
+    fontSize: 14,
+    fontWeight: '700',
+    fontVariant: ['small-caps'],
+    color: '#fff',
+    marginLeft: 10,
   }
 
 })

@@ -11,7 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/core'
 
-const FavoritesScreen = () => {
+const AdminScreen = () => {
 
   const navigation = useNavigation();
 
@@ -26,7 +26,7 @@ const FavoritesScreen = () => {
         />
       </TouchableOpacity>
       <View>
-        <Text style={styles.title}>Favorites</Text>
+        <Text style={styles.title}>Admin Permission</Text>
       </View>
       <StatusBar backgroundColor='#014576' barStyle="light-content" />
       <Animatable.View
@@ -38,7 +38,7 @@ const FavoritesScreen = () => {
   )
 }
 
-export default FavoritesScreen
+export default AdminScreen;
 
 const styles = StyleSheet.create({
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30
   },
   title: {
-    marginLeft: 85,
+    marginLeft: 30,
     color: '#ffffff',
     fontSize: 35,
     fontWeight: 'bold',

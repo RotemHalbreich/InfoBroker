@@ -40,7 +40,7 @@ export default function CustomSwitch({
           {option1}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         activeOpacity={1}
         onPress={() => updateSwitchData(2)}
         style={{
@@ -58,7 +58,7 @@ export default function CustomSwitch({
           }}>
           {option2}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
@@ -74,4 +74,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+
 })

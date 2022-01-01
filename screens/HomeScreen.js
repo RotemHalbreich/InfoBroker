@@ -25,6 +25,8 @@ import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
 import { FontAwesome } from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const HomeScreen = () => {
@@ -32,7 +34,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [symbolsTab, setSymbolsTab] = useState(1);
   const [recommended, setRecommended] = useState([]);
-
+  const [u_name, setName] = useState("")
   const renderBanner = ({ item, index }) => {
     return <BannerSlider data={item} />;
   };
@@ -46,11 +48,30 @@ const HomeScreen = () => {
   // 
 
   useEffect(async () => {
-    const response = await apiReq.get('/stock/getAllRecommended');
-    if (response.status == 200) {
-      setRecommended(response.data.recommended);
+    try {
+      const response = await apiReq.get('/stock/getAllRecommended');
+      if (response.status == 200) {
+        setRecommended(response.data.recommended);
+      }
+    }
+    catch (e) {
+      console.log(e);
+
     }
   }, []);
+
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem('token');
+    try {
+      const response = await apiReq.post('/auth/getUserByName', { token: token });
+      if (response.status == 200) {
+        setName(response.data.name);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+  }, [])
 
   return (
     // <SafeAreaView style={styles.container}>
@@ -61,7 +82,7 @@ const HomeScreen = () => {
           justifyContent: 'space-between',
         }}>
         <Text style={styles.user}>
-          Welcome  Rotem!
+          Welcome  {u_name}!
         </Text>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           {/* <ImageBackground
@@ -71,7 +92,7 @@ const HomeScreen = () => {
           /> */}
           <MaterialIcons
             name="menu"
-            style={{ width: 35, height: 35, marginTop: 20 }}
+            style={{ width: 35, height: 35, marginTop: 20, marginBottom: 25 }}
             size={40}
             color={'#014576'}
           />
@@ -101,14 +122,14 @@ const HomeScreen = () => {
         loop={true}
       />
 
-      <View style={{ marginVertical: 20 }}>
+      {/* <View style={{ marginVertical: 20 }}>
         <CustomSwitch
           selectionMode={1}
           option1="Insights"
           option2="News"
           onSelectSwitch={onSelectSwitch}
         />
-      </View>
+      </View> */}
 
       {symbolsTab == 1 &&
         recommended.map(item => (
@@ -117,7 +138,7 @@ const HomeScreen = () => {
             image={item.image}
             name={item.name}
             symbol={item.symbol}
-            // getInfo={item.getInfo}
+          // getInfo={item.getInfo}
           />
         ))}
       {symbolsTab == 2 &&
@@ -127,7 +148,7 @@ const HomeScreen = () => {
             image={item.image}
             name={item.name}
             symbol={item.symbol}
-            // Article={item.Article}
+          // Article={item.Article}
           />
         ))}
     </ScrollView>

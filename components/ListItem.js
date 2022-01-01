@@ -13,7 +13,7 @@ export default function ListItem({ image, symbol, name, getInfo, Article }) {
     <View style={styles.container}>
       <View style={styles.middleScreen}>
         <Image
-          source={image}
+          source={{uri: image}}
           style={styles.photo}
         />
         <View style={{ width: windowWidth - 220 }}>

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
@@ -24,37 +24,28 @@ import * as ImagePicker from 'expo-image-picker';
 import UserPermissions from '../utils/UserPermissions.js';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useFonts } from 'expo-font';
+import apiReq from '../utils/axios'
+
 
 
 const CustomDrawer = (props) => {
 
   const [image, setImage] = useState(null);
-  // const [load] = useFonts({
-  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
-  // });
+  const [u_name, setName] = useState(null);
 
 
-  // const pickImage = async () => {
-  //   // No permissions request is necessary for launching the image library
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
+  useEffect(async () => {
+    const token = await AsyncStorage.getItem('token');
+    try {
+      const response = await apiReq.post('/auth/getUserByName', { token: token });
+      if (response.status == 200) {
+        setName(response.data.name);
+      }
+    } catch (e) {
+      console.log(e);
+    }
 
-  //   console.log(result);
-
-  //   if (!result.cancelled) {
-  //     setImage(result.uri);
-  //   }
-  // };
-
-  // state = {
-  //   user: {
-  //     avatar: null
-  //   }
-  // }
+  }, [])
 
   const handleAvatar = async () => {
     UserPermissions.getCameraPermission();
@@ -126,7 +117,7 @@ const CustomDrawer = (props) => {
             <FontAwesome5 style={{ marginEnd: 12 }} name="user-tie" size={20} color="#fff" />
             <Text
               style={styles.username}>
-              My Username
+              {u_name}
             </Text>
           </View>
 

@@ -140,7 +140,7 @@ export default function App() {
             ),
           }}
         />
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="Favorites"
           component={FavoritesScreen}
           options={{
@@ -148,10 +148,19 @@ export default function App() {
               <Ionicons name="bookmarks-outline" size={22} color={color} />
             ),
           }}
-        />
-        <Drawer.Screen
+        /> */}
+        {/* <Drawer.Screen
           name="Settings"
           component={SettingsScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="settings-outline" size={22} color={color} />
+            ),
+          }}
+        /> */}
+          <Drawer.Screen
+          name="Admin"
+          component={AdminScreen}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="settings-outline" size={22} color={color} />
@@ -161,15 +170,6 @@ export default function App() {
         <Drawer.Screen
           name="About"
           component={AboutScreen}
-          options={{
-            drawerIcon: ({ color }) => (
-              <Ionicons name="information-circle-outline" size={22} color={color} />
-            ),
-          }}
-        />
-          <Drawer.Screen
-          name="Admin"
-          component={AdminScreen}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="information-circle-outline" size={22} color={color} />

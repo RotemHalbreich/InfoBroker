@@ -2,12 +2,15 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { windowWidth } from '../utils/Dimensions';
 import { useFonts } from 'expo-font';
-
+import { useNavigation } from '@react-navigation/core'
 export default function ListItem({ image, symbol, name, getInfo, Article }) {
-
-  // const [load] = useFonts({
-  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
-  // });
+  const navigation = useNavigation();
+  
+  const setGetInfo = async (s) =>{
+    console.log(s);
+    navigation.navigate('Analytics', s)
+  
+  }
 
   return (
     <View style={styles.container}>
@@ -39,18 +42,22 @@ export default function ListItem({ image, symbol, name, getInfo, Article }) {
         </View>
       </View>
 
-      <TouchableOpacity style={{
+      <TouchableOpacity onPress={() => setGetInfo(symbol)} 
+      style={{
         backgroundColor: '#014576',
         padding: 10,
         width: 100,
         borderRadius: 10,
-      }}>
+      }
+
+      }>
         <Text style={{
           color: '#fff',
           textAlign: 'center',
           // fontFamily: 'BreeSerif',
           fontSize: 14,
         }}>
+         
           {/* {getInfo == 'Yes' && 'Get info'}
           {Article == 'Yes' && 'Article'} */}
           Get Info

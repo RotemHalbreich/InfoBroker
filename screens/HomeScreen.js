@@ -117,14 +117,6 @@ const HomeScreen = () => {
         loop={true}
       />
 
-      {/* <View style={{ marginVertical: 20 }}>
-        <CustomSwitch
-          selectionMode={1}
-          option1="Insights"
-          option2="News"
-          onSelectSwitch={onSelectSwitch}
-        />
-      </View> */}
 
       {symbolsTab == 1 &&
         recommended.map(item => (
@@ -133,7 +125,6 @@ const HomeScreen = () => {
             image={item.image}
             name={item.name}
             symbol={item.symbol}
-          // getInfo={item.getInfo}
           />
         ))}
       {symbolsTab == 2 &&
@@ -143,7 +134,7 @@ const HomeScreen = () => {
             image={item.image}
             name={item.name}
             symbol={item.symbol}
-          // Article={item.Article}
+     
           />
         ))}
     </ScrollView>

@@ -100,14 +100,13 @@ export default function App() {
     if(token){
       const response = await apiReq.post('/auth/isAdmin', { token: token});
       setIsAdmin(response.data.admin)
-      console.log(useIsDrawerOpen());
     }
   }catch (e){
     console.log(e);
   }
-  },[isAdmin])
+  },[Drawer])
 
-  
+
   
   return (
     <NavigationContainer>
@@ -117,7 +116,6 @@ export default function App() {
           headerShown: false,
           headerStyle: {
             backgroundColor: '#014576',
-
           },
           headerTintColor: '#fff',
           drawerActiveBackgroundColor: '#014576',
@@ -139,9 +137,7 @@ export default function App() {
           screenOptions={{ headerShown: false }}
           name="Home"
           component={AuthStack}
-          options={
-            {unmountOnBlur:true}, 
-            {
+          options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color}
               />
@@ -152,7 +148,6 @@ export default function App() {
           name="Profile"
           component={ProfileScreen}
           options={{
-            
             drawerIcon: ({ color }) => (
               <Ionicons name="person-outline" size={22} color={color} />
             ),
@@ -161,9 +156,7 @@ export default function App() {
         <Drawer.Screen
           name="Analytics"
           component={AnalyzeScreen}
-          options={
-            {unmountOnBlur:true}, 
-            {
+          options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="analytics-outline" size={22} color={color} />
             ),
@@ -174,10 +167,7 @@ export default function App() {
           <Drawer.Screen
           name="Admin"
           component={AdminScreen}
-          options={
-            {unmountOnBlur:true}, 
-            {
-            
+          options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="settings-outline" size={22} color={color} />
             ),
@@ -187,9 +177,7 @@ export default function App() {
         <Drawer.Screen
           name="About"
           component={AboutScreen}
-          options={
-            {unmountOnBlur:true}, 
-            {
+          options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="information-circle-outline" size={22} color={color} />
             ),
@@ -200,7 +188,7 @@ export default function App() {
       </Drawer.Navigator>
     </NavigationContainer>
   );
-
+  
 }
 
 const styles = StyleSheet.create({

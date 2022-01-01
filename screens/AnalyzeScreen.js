@@ -16,15 +16,12 @@ const jsonURL = "https://infobroker.herokuapp.com/api/stock/getCurrStockData?sym
 
 const AnalyzeScreen = () => {
 
-  // const [load] = useFonts({
-  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
-  // });
 
-  // const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState(undefined);
   const [search, setSearch] = useState("");
   const [update, setUpdate] = useState(false);
   const navigation = useNavigation();
+  
 
   useEffect(() => {
     search.toUpperCase

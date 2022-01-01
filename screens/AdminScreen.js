@@ -36,7 +36,23 @@ const AdminScreen = () => {
 
   const setUserAdmin = async () => {
     try {
+      const setUserAdmin = async () => {
+    try {
       await apiReq.post('/auth/setAdmin', { email: addAdminMail });
+      setSuccessMsg("Successfully updated the permission of the given user")
+      setIsSuccess(true)
+
+    } catch {
+      setErrorMsg("The given user does not exist")
+      setIsError(true)
+
+    } finally {
+      setRemMail("")
+      setAddSymbol("")
+      setremSymbol("")
+      setAddAdminMail("")
+    }
+  }
       setSuccessMsg("Successfully updated the permission of the given user")
       setIsSuccess(true)
 

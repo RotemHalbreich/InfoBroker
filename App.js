@@ -16,6 +16,7 @@ import SettingsScreen from './screens/SettingsScreen';
 import AboutScreen from './screens/AboutScreen';
 import StackNavigation from './navigation/StackNavigation.js';
 import BottomTab from './navigation/BottomTab.js';
+import AdminScreen from './screens/AdminScreen';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Platform } from 'react-native';
@@ -160,6 +161,15 @@ export default function App() {
         <Drawer.Screen
           name="About"
           component={AboutScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="information-circle-outline" size={22} color={color} />
+            ),
+          }}
+        />
+          <Drawer.Screen
+          name="Admin"
+          component={AdminScreen}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="information-circle-outline" size={22} color={color} />

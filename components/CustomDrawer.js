@@ -66,7 +66,8 @@ const CustomDrawer = (props) => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: 'This is your shared message!',
+        message: "We are on GitHub, check this out\nhttps://github.com/RotemHalbreich/InfoBroker",
+        // url : "https://github.com/RotemHalbreich/InfoBroker"
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

@@ -11,25 +11,34 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/core'
 import { useFonts } from 'expo-font';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const jsonURL = "https://infobroker.herokuapp.com/api/stock/getCurrStockData?symbol=";
 
 const AnalyzeScreen = () => {
 
-
+  const [lastSymbol, setLastSymbol] = useState("TSLA")
   const [data, setData] = useState(undefined);
   const [search, setSearch] = useState("");
   const [update, setUpdate] = useState(false);
   const navigation = useNavigation();
-  
+  console.log("aaaaa");
+  useEffect(async ()=> {
+    const symbol = await AsyncStorage.getItem('symbol');
+    if(symbol){
+      setLastSymbol("AAPL")
+      setSearch(symbol)
+      setUpdate((update) => !update)
+    }
+  }, [])
 
   useEffect(() => {
+
     search.toUpperCase
     fetch(jsonURL + search)
       .then((response) => response.json())
       .then((json) => {
         setData(json.stocks);
-        console.log(json.stocks);
       })
   }, [update]);
 
@@ -61,9 +70,6 @@ const AnalyzeScreen = () => {
     json = json.replaceAll('{', '')
     json = json.replaceAll('}', '')
     json = json.replaceAll(':', ':   ')
-
-
-
     console.log(json);
     try {
       const result = await Share.share({
@@ -85,7 +91,6 @@ const AnalyzeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
         <MaterialIcons
           name="menu"

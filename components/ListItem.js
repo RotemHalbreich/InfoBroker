@@ -3,11 +3,15 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { windowWidth } from '../utils/Dimensions';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/core'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function ListItem({ image, symbol, name, getInfo, Article }) {
   const navigation = useNavigation();
   
   const setGetInfo = async (s) =>{
     console.log(s);
+    await AsyncStorage.setItem('symbol', s);
+
     navigation.navigate('Analytics', s)
   
   }

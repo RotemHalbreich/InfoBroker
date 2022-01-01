@@ -23,14 +23,16 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import * as ImagePicker from 'expo-image-picker';
 import UserPermissions from '../utils/UserPermissions.js';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-
-
+import { useFonts } from 'expo-font';
 
 
 const CustomDrawer = (props) => {
 
   const [image, setImage] = useState(null);
+  // const [load] = useFonts({
+  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
+  // });
+
 
   // const pickImage = async () => {
   //   // No permissions request is necessary for launching the image library
@@ -164,9 +166,6 @@ const CustomDrawer = (props) => {
 export default CustomDrawer
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#c9f',
-  },
 
   imageContainer: {
     width: '60%',
@@ -188,19 +187,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     fontVariant: ['small-caps'],
-    // fontFamily: 'Roboto-Medium',
+    // fontFamily: 'BreeSerif',
   },
 
   subtitle: {
     color: '#fff',
     fontSize: 15,
-    // fontFamily: 'Roboto-Regular',
+    // fontFamily: 'BreeSerif',
     marginRight: 5,
   },
 
   shareButton: {
     fontSize: 15,
-    // fontFamily: 'Roboto-Medium',
+    // fontFamily: 'BreeSerif',
     marginLeft: 5,
   },
 
@@ -208,6 +207,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     fontVariant: ['small-caps'],
+    // fontFamily: 'BreeSerif',
     color: '#fff',
     marginLeft: 10,
   }

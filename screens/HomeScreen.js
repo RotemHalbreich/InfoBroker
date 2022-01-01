@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,6 +13,7 @@ import {
 import Carousel from 'react-native-snap-carousel';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import apiReq from '../utils/axios'
 
 // import { auth } from '../firebase.js'
 import { signOut } from 'firebase/auth'
@@ -30,6 +31,7 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
   const [symbolsTab, setSymbolsTab] = useState(1);
+  const [recommended, setRecommended] = useState([]);
 
   const renderBanner = ({ item, index }) => {
     return <BannerSlider data={item} />;
@@ -39,13 +41,16 @@ const HomeScreen = () => {
     setSymbolsTab(value);
   };
 
-  // const handleSignOut = () => {
-  //   signOut(auth)
-  //     .then(() => {
-  //       navigation.replace("Login")
-  //     })
-  //     .catch(error => alert(error.message))
-  // }
+  //
+  // const navigation = useNavigation();
+  // 
+
+  useEffect(async () => {
+    const response = await apiReq.get('/stock/getAllRecommended');
+    if (response.status == 200) {
+      setRecommended(response.data.recommended);
+    }
+  }, []);
 
   return (
     // <SafeAreaView style={styles.container}>
@@ -89,9 +94,6 @@ const HomeScreen = () => {
       </View>
 
       <Carousel
-        // ref={c => {
-        //   this._carousel = c;
-        // }}
         data={sliderData}
         renderItem={renderBanner}
         sliderWidth={windowWidth - 50}
@@ -109,23 +111,23 @@ const HomeScreen = () => {
       </View>
 
       {symbolsTab == 1 &&
-        insights.map(item => (
+        recommended.map(item => (
           <ListItem
-            key={item.id}
-            photo={item.poster}
-            title={item.title}
-            subTitle={item.subtitle}
-            getInfo={item.getInfo}
+            id={item.id}
+            image={item.image}
+            name={item.name}
+            symbol={item.symbol}
+            // getInfo={item.getInfo}
           />
         ))}
       {symbolsTab == 2 &&
         news.map(item => (
           <ListItem
-            key={item.id}
-            photo={item.poster}
-            title={item.title}
-            subTitle={item.subtitle}
-            Article={item.Article}
+            id={item.id}
+            image={item.image}
+            name={item.name}
+            symbol={item.symbol}
+            // Article={item.Article}
           />
         ))}
     </ScrollView>

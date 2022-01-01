@@ -33,6 +33,20 @@ const AdminScreen = () => {
         animation="fadeInUpBig"
         style={styles.footer}
       >
+         <View><Text style={styles.contact}>How can we help?</Text></View>
+        <TouchableOpacity onPress={navigateGithub}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
+            <FontAwesome5
+              name="github"
+              size={70}
+              color="#630da0"
+            />
+            <Text
+              style={styles.githubButton}>
+              Github Page
+            </Text>
+          </View>
+        </TouchableOpacity>
       </Animatable.View>
     </View>
   )
@@ -62,5 +76,63 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontVariant: ['small-caps']
   },
+  githubButton: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#ffffff',
+    marginLeft: 30,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderWidth: 2,
+    borderColor: 'black',
+    backgroundColor: '#630da0',
+  },
+  linkedinButton: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#ffffff',
+    marginLeft: 30,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderWidth: 2,
+    borderColor: 'black',
+    backgroundColor: '#1e83cb',
+  },
+  mailButton: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#ffffff',
+    marginLeft: 30,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderWidth: 2,
+    borderColor: 'black',
+    backgroundColor: '#b11',
+  },
+  credits: {
+    fontSize: 26,
+    color: '#b3aeae',
+    fontWeight: '700',
+    paddingVertical: 10,
+    fontVariant: ['small-caps'],
+    marginTop: 50,
+    marginLeft: 100
+  },
+  authors: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#b3aeae',
+  },
+  contact: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#000000',
+    paddingVertical: 10,
+    fontVariant: ['small-caps'],
+    marginLeft: 28
+  }
 
 })

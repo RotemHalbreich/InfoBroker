@@ -85,11 +85,6 @@ const HomeScreen = () => {
           Welcome  {u_name}!
         </Text>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          {/* <ImageBackground
-            source={require('../assets/images/user.jpg')}
-            style={{ width: 35, height: 35, marginTop: 20 }}
-            imageStyle={{ borderRadius: 25 }}
-          /> */}
           <MaterialIcons
             name="menu"
             style={{ width: 35, height: 35, marginTop: 20, marginBottom: 25 }}

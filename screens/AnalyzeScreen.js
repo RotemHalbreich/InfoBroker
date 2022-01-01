@@ -58,19 +58,29 @@ const AnalyzeScreen = () => {
 
 
   const onShare = async () => {
+    let json = JSON.stringify(data[0]);
+    json = json.replaceAll(',', '\n')
+    json = json.replaceAll('"', '')
+    json = json.replaceAll('{', '')
+    json = json.replaceAll('}', '')
+    json = json.replaceAll(':', ':   ')
+
+
+
+    console.log(json);
     try {
       const result = await Share.share({
-        message: 'This is your shared message!' + data,
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
+        message: json
+      })
+      // if (result.action === Share.sharedAction) {
+      //   if (result.activityType) {
+      //     // shared with activity type of result.activityType
+      //   } else {
+      //     // shared
+      //   }
+      // } else if (result.action === Share.dismissedAction) {
+      //   // dismissed
+      // }
     } catch (error) {
       alert(error.message);
     }

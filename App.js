@@ -17,12 +17,14 @@ import AboutScreen from './screens/AboutScreen';
 import StackNavigation from './navigation/StackNavigation.js';
 import BottomTab from './navigation/BottomTab.js';
 import AdminScreen from './screens/AdminScreen';
+import apiReq from './utils/axios';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import axios from 'axios';
+import { useDrawerStatus } from '@react-navigation/drawer';
 
 
 //App Notifications:
@@ -61,8 +63,11 @@ const Drawer = createDrawerNavigator();
 const AuthStack = ({ navigation }) => (
   <StackNavigation />
 );
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import useForceUpdate from 'use-force-update';
 
 export default function App() {
+
 
   const responseListener = useRef();
   useEffect(() => {
@@ -85,7 +90,25 @@ export default function App() {
       return () => { Notifications.removeNotificationSubscription(responseListener); };
     }
   });
+  const [isAdmin, setIsAdmin] = useState(false);
 
+
+  useEffect (async ()=>{
+    try{
+    const token = await AsyncStorage.getItem('token');
+    console.log("Aaa");
+    if(token){
+      const response = await apiReq.post('/auth/isAdmin', { token: token});
+      setIsAdmin(response.data.admin)
+      console.log(useIsDrawerOpen());
+    }
+  }catch (e){
+    console.log(e);
+  }
+  },[isAdmin])
+
+  
+  
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -94,6 +117,7 @@ export default function App() {
           headerShown: false,
           headerStyle: {
             backgroundColor: '#014576',
+
           },
           headerTintColor: '#fff',
           drawerActiveBackgroundColor: '#014576',
@@ -115,7 +139,9 @@ export default function App() {
           screenOptions={{ headerShown: false }}
           name="Home"
           component={AuthStack}
-          options={{
+          options={
+            {unmountOnBlur:true}, 
+            {
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color}
               />
@@ -126,6 +152,7 @@ export default function App() {
           name="Profile"
           component={ProfileScreen}
           options={{
+            
             drawerIcon: ({ color }) => (
               <Ionicons name="person-outline" size={22} color={color} />
             ),
@@ -134,43 +161,35 @@ export default function App() {
         <Drawer.Screen
           name="Analytics"
           component={AnalyzeScreen}
-          options={{
+          options={
+            {unmountOnBlur:true}, 
+            {
             drawerIcon: ({ color }) => (
               <Ionicons name="analytics-outline" size={22} color={color} />
             ),
           }}
         />
-        {/* <Drawer.Screen
-          name="Favorites"
-          component={FavoritesScreen}
-          options={{
-            drawerIcon: ({ color }) => (
-              <Ionicons name="bookmarks-outline" size={22} color={color} />
-            ),
-          }}
-        /> */}
-        {/* <Drawer.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{
-            drawerIcon: ({ color }) => (
-              <Ionicons name="settings-outline" size={22} color={color} />
-            ),
-          }}
-        /> */}
+       
+          {isAdmin?
           <Drawer.Screen
           name="Admin"
           component={AdminScreen}
-          options={{
+          options={
+            {unmountOnBlur:true}, 
+            {
+            
             drawerIcon: ({ color }) => (
               <Ionicons name="settings-outline" size={22} color={color} />
             ),
           }}
-        />
+        /> : null
+        }
         <Drawer.Screen
           name="About"
           component={AboutScreen}
-          options={{
+          options={
+            {unmountOnBlur:true}, 
+            {
             drawerIcon: ({ color }) => (
               <Ionicons name="information-circle-outline" size={22} color={color} />
             ),
@@ -181,6 +200,7 @@ export default function App() {
       </Drawer.Navigator>
     </NavigationContainer>
   );
+
 }
 
 const styles = StyleSheet.create({

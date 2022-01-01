@@ -10,11 +10,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/core'
-
+import { useFonts } from 'expo-font';
 
 const jsonURL = "https://infobroker.herokuapp.com/api/stock/getCurrStockData?symbol=";
 
 const AnalyzeScreen = () => {
+
+  // const [load] = useFonts({
+  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
+  // });
 
   // const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState(undefined);
@@ -37,17 +41,17 @@ const AnalyzeScreen = () => {
     if (!item) { return null }
     return (
       <View>
-        <Text style={styles.text}>Name: {item.longName}</Text>
-        <Text style={styles.text}>At Close {item.regularMarketPrice}</Text>
-        <Text style={styles.text}>Pre Market Price: {item.preMarketPrice} ({item.preMarketChangePercent}%) </Text>
-        <Text style={styles.text}>Day's Range: {item.regularMarketDayRange}</Text>
-        <Text style={styles.text}>Year's Range: {item.fiftyTwoWeekRange}</Text>
-        <Text style={styles.text}>Volume: {item.regularMarketVolume}</Text>
-        <Text style={styles.text}>Open: {item.regularMarketOpen}</Text>
-        <Text style={styles.text}>Previous Close: {item.regularMarketPreviousClose}</Text>
-        <Text style={styles.text}>50 Day Average: {item.fiftyDayAverage}</Text>
-        <Text style={styles.text}>Analysts Rating: {item.averageAnalystRating}</Text>
-        <Text style={styles.text}>Market State: {item.marketState}</Text>
+        <Text style={styles.text}>Name:  {item.longName}</Text>
+        <Text style={styles.text}>At Close  {item.regularMarketPrice}</Text>
+        <Text style={styles.text}>Pre Market Price:  {item.preMarketPrice} ({item.preMarketChangePercent}%) </Text>
+        <Text style={styles.text}>Day's Range:  {item.regularMarketDayRange}</Text>
+        <Text style={styles.text}>Year's Range:  {item.fiftyTwoWeekRange}</Text>
+        <Text style={styles.text}>Volume:  {item.regularMarketVolume}</Text>
+        <Text style={styles.text}>Open:  {item.regularMarketOpen}</Text>
+        <Text style={styles.text}>Previous Close:  {item.regularMarketPreviousClose}</Text>
+        <Text style={styles.text}>50 Day Average:  {item.fiftyDayAverage}</Text>
+        <Text style={styles.text}>Analysts Rating:  {item.averageAnalystRating}</Text>
+        <Text style={styles.text}>Market State:  {item.marketState}</Text>
       </View>
     );
   }
@@ -164,8 +168,9 @@ const styles = StyleSheet.create({
   text: {
     paddingVertical: 6,
     color: '#05375a',
-    fontSize: 15,
-    fontWeight: 'bold',
+    fontSize: 15.6,
+    // fontFamily: 'BreeSerif',
+    fontWeight: '700',
     display: 'flex',
     alignItems: 'center',
   },
@@ -185,8 +190,7 @@ const styles = StyleSheet.create({
   },
   shareStock: {
     fontSize: 16,
-    fontVariant: ['small-caps'],
-    fontWeight: '300',
+    // fontFamily: 'BreeSerif',
     color: '#ffffff',
     marginLeft: 10,
     borderRadius: 20,
@@ -195,5 +199,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     backgroundColor: '#1e83cb',
+    fontWeight: '700',
   },
 });

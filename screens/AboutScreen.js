@@ -13,23 +13,27 @@ import { FontAwesome } from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/core'
 import * as WebBrowser from 'expo-web-browser';
+import { useFonts } from 'expo-font';
 
 const AboutScreen = () => {
 
   const navigation = useNavigation();
   const [result, setResult] = useState(null);
+  // const [load] = useFonts({
+  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
+  // });
 
-  const redirectGithub = async () => {
+  const navigateGithub = async () => {
     let result = await WebBrowser.openBrowserAsync('https://github.com/RotemHalbreich/InfoBroker.git');
     setResult(result);
   };
 
-  const redirectLinkedin = async () => {
+  const navigateLinkedin = async () => {
     let result = await WebBrowser.openBrowserAsync('https://www.linkedin.com/in/rotemhalbreich/');
     setResult(result);
   };
 
-  const redirectEmail = async () => {
+  const navigateEmail = async () => {
     let result = await WebBrowser.openBrowserAsync('mailto:rotem.halbreich@gmail.com');
     setResult(result);
   };
@@ -54,7 +58,7 @@ const AboutScreen = () => {
         style={styles.footer}
       >
         <View><Text style={styles.contact}>How can we help?</Text></View>
-        <TouchableOpacity onPress={redirectGithub}>
+        <TouchableOpacity onPress={navigateGithub}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
             <FontAwesome5
               name="github"
@@ -68,7 +72,7 @@ const AboutScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={redirectLinkedin}>
+        <TouchableOpacity onPress={navigateLinkedin}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, marginLeft: 5 }}>
             <FontAwesome5
               name="linkedin"
@@ -82,7 +86,7 @@ const AboutScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={redirectEmail}>
+        <TouchableOpacity onPress={navigateEmail}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
             <Feather
               name="mail"
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
   },
   githubButton: {
     fontSize: 20,
-    fontWeight: '700',
+    // fontFamily: 'BreeSerif',
     color: '#ffffff',
     marginLeft: 30,
     borderRadius: 20,
@@ -147,10 +151,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     backgroundColor: '#630da0',
+    fontWeight: '700',
   },
   linkedinButton: {
     fontSize: 20,
-    fontWeight: '700',
+    // fontFamily: 'BreeSerif',
     color: '#ffffff',
     marginLeft: 30,
     borderRadius: 20,
@@ -159,10 +164,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     backgroundColor: '#1e83cb',
+    fontWeight: '700',
   },
   mailButton: {
     fontSize: 20,
-    fontWeight: '700',
+    // fontFamily: 'BreeSerif',
     color: '#ffffff',
     marginLeft: 30,
     borderRadius: 20,
@@ -171,6 +177,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     backgroundColor: '#b11',
+    fontWeight: '700',
   },
   credits: {
     fontSize: 26,
@@ -178,20 +185,21 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     paddingVertical: 10,
     fontVariant: ['small-caps'],
-    marginTop: 50,
+    marginTop: 90,
     marginLeft: 100
   },
   authors: {
     fontSize: 16,
-    fontWeight: 'bold',
+    // fontFamily: 'BreeSerif',
     color: '#b3aeae',
   },
   contact: {
     fontSize: 28,
-    fontWeight: '700',
+    // fontFamily: 'BreeSerif',
     color: '#000000',
     paddingVertical: 10,
     fontVariant: ['small-caps'],
+    fontWeight: '700',
     marginLeft: 28
   }
 

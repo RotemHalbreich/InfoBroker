@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
 
 export default function CustomSwitch({
   selectionMode,
@@ -8,6 +9,9 @@ export default function CustomSwitch({
   onSelectSwitch,
 }) {
   const [getSelectionMode, setSelectionMode] = useState(selectionMode);
+  // const [load] = useFonts({
+  //   BreeSerif: require('../assets/fonts/BreeSerif-Regular.ttf'),
+  // });
 
   const updateSwitchData = value => {
     setSelectionMode(value);
@@ -16,15 +20,7 @@ export default function CustomSwitch({
 
   return (
     <View
-      style={{
-        height: 44,
-        width: '100%',
-        backgroundColor: '#e4e4e4',
-        borderRadius: 10,
-        borderColor: '#014576',
-        flexDirection: 'row',
-        justifyContent: 'center',
-      }}>
+      style={styles.container}>
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => updateSwitchData(1)}
@@ -39,7 +35,7 @@ export default function CustomSwitch({
           style={{
             color: getSelectionMode == 1 ? 'white' : '#014576',
             fontSize: 14,
-            // fontFamily: 'Roboto-Medium',
+            // fontFamily: 'BreeSerif',
           }}>
           {option1}
         </Text>
@@ -58,7 +54,7 @@ export default function CustomSwitch({
           style={{
             color: getSelectionMode == 2 ? 'white' : '#014576',
             fontSize: 14,
-            // fontFamily: 'Roboto-Medium',
+            // fontFamily: 'BreeSerif',
           }}>
           {option2}
         </Text>
@@ -66,3 +62,16 @@ export default function CustomSwitch({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+
+  container: {
+    height: 44,
+    width: '100%',
+    backgroundColor: '#e4e4e4',
+    borderRadius: 10,
+    borderColor: '#014576',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+})

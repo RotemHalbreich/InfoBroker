@@ -64,7 +64,6 @@ const AuthStack = ({ navigation }) => (
   <StackNavigation />
 );
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import useForceUpdate from 'use-force-update';
 
 export default function App() {
 
@@ -93,21 +92,20 @@ export default function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
 
-  useEffect (async ()=>{
-    try{
-    const token = await AsyncStorage.getItem('token');
-    console.log("Aaa");
-    if(token){
-      const response = await apiReq.post('/auth/isAdmin', { token: token});
-      setIsAdmin(response.data.admin)
+  useEffect(async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        const response = await apiReq.post('/auth/isAdmin', { token: token });
+        setIsAdmin(response.data.admin)
+      }
+    } catch (e) {
+      console.log("App.js - AsyncStorage", e);
     }
-  }catch (e){
-    console.log(e);
-  }
-  },[Drawer])
+  }, [Drawer])
 
 
-  
+
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -135,7 +133,7 @@ export default function App() {
 
         <Drawer.Screen
           screenOptions={{ headerShown: false }}
-          name="Home"
+          name="Home "
           component={AuthStack}
           options={{
             drawerIcon: ({ color }) => (
@@ -162,17 +160,17 @@ export default function App() {
             ),
           }}
         />
-       
-          {isAdmin?
+
+        {isAdmin ?
           <Drawer.Screen
-          name="Admin"
-          component={AdminScreen}
-          options={{
-            drawerIcon: ({ color }) => (
-              <Ionicons name="settings-outline" size={22} color={color} />
-            ),
-          }}
-        /> : null
+            name="Admin"
+            component={AdminScreen}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Ionicons name="settings-outline" size={22} color={color} />
+              ),
+            }}
+          /> : null
         }
         <Drawer.Screen
           name="About"
@@ -188,7 +186,7 @@ export default function App() {
       </Drawer.Navigator>
     </NavigationContainer>
   );
-  
+
 }
 
 const styles = StyleSheet.create({

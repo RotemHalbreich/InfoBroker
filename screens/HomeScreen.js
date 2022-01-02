@@ -14,9 +14,6 @@ import Carousel from 'react-native-snap-carousel';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import apiReq from '../utils/axios'
-
-// import { auth } from '../firebase.js'
-import { signOut } from 'firebase/auth'
 import { windowWidth } from '../utils/Dimensions';
 
 import { insights, news, sliderData } from '../model/data.js'
@@ -43,9 +40,7 @@ const HomeScreen = () => {
     setSymbolsTab(value);
   };
 
-  //
-  // const navigation = useNavigation();
-  // 
+
 
   useEffect(async () => {
     try {
@@ -121,7 +116,7 @@ const HomeScreen = () => {
       {symbolsTab == 1 &&
         recommended.map(item => (
           <ListItem
-            id={item.id}
+            key={item.id}
             image={item.image}
             name={item.name}
             symbol={item.symbol}
@@ -130,11 +125,11 @@ const HomeScreen = () => {
       {symbolsTab == 2 &&
         news.map(item => (
           <ListItem
-            id={item.id}
+            key={item.id}
             image={item.image}
             name={item.name}
             symbol={item.symbol}
-     
+
           />
         ))}
     </ScrollView>

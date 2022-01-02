@@ -5,22 +5,22 @@ import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/core'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function ListItem({ image, symbol, name, getInfo, Article }) {
+export default function ListItem({ image, symbol, name }) {
   const navigation = useNavigation();
-  
-  const setGetInfo = async (s) =>{
+
+  const setGetInfo = async (s) => {
     console.log(s);
     await AsyncStorage.setItem('symbol', s);
 
     navigation.navigate('Analytics', s)
-  
+
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.middleScreen}>
         <Image
-          source={{uri: image}}
+          source={{ uri: image }}
           style={styles.photo}
         />
         <View style={{ width: windowWidth - 220 }}>
@@ -46,22 +46,22 @@ export default function ListItem({ image, symbol, name, getInfo, Article }) {
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => setGetInfo(symbol)} 
-      style={{
-        backgroundColor: '#014576',
-        padding: 10,
-        width: 100,
-        borderRadius: 10,
-      }
+      <TouchableOpacity onPress={() => setGetInfo(symbol)}
+        style={{
+          backgroundColor: '#014576',
+          padding: 10,
+          width: 100,
+          borderRadius: 10,
+        }
 
-      }>
+        }>
         <Text style={{
           color: '#fff',
           textAlign: 'center',
           // fontFamily: 'BreeSerif',
           fontSize: 14,
         }}>
-         
+
           {/* {getInfo == 'Yes' && 'Get info'}
           {Article == 'Yes' && 'Article'} */}
           Get Info
@@ -79,14 +79,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   photo: {
-    width: 55, 
-    height: 55, 
-    borderRadius: 10, 
+    width: 55,
+    height: 55,
+    borderRadius: 10,
     marginRight: 8
   },
   middleScreen: {
     flexDirection: 'row',
-    alignItems: 'center', 
+    alignItems: 'center',
     flex: 1
   },
 

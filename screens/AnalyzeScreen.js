@@ -22,10 +22,9 @@ const AnalyzeScreen = () => {
   const [search, setSearch] = useState("");
   const [update, setUpdate] = useState(false);
   const navigation = useNavigation();
-  console.log("aaaaa");
-  useEffect(async ()=> {
+  useEffect(async () => {
     const symbol = await AsyncStorage.getItem('symbol');
-    if(symbol){
+    if (symbol) {
       setLastSymbol("AAPL")
       setSearch(symbol)
       setUpdate((update) => !update)
@@ -65,25 +64,15 @@ const AnalyzeScreen = () => {
 
   const onShare = async () => {
     let json = JSON.stringify(data[0]);
-    json = json.replaceAll(',', '\n')
-    json = json.replaceAll('"', '')
-    json = json.replaceAll('{', '')
-    json = json.replaceAll('}', '')
-    json = json.replaceAll(':', ':   ')
-    console.log(json);
+    json = json.replace(/,/g, '\n');
+    json = json.replace(/"/g, '');
+    json = json.replace(/{/g, '');
+    json = json.replace(/}/g, '');
+    json = json.replace(/:/g, ':   ');
     try {
       const result = await Share.share({
         message: json
       })
-      // if (result.action === Share.sharedAction) {
-      //   if (result.activityType) {
-      //     // shared with activity type of result.activityType
-      //   } else {
-      //     // shared
-      //   }
-      // } else if (result.action === Share.dismissedAction) {
-      //   // dismissed
-      // }
     } catch (error) {
       alert(error.message);
     }

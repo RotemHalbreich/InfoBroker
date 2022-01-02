@@ -48,7 +48,7 @@ const CustomDrawer = (props) => {
   }, [])
 
   const handleAvatar = async () => {
-    UserPermissions.getCameraPermission();
+    // UserPermissions.getCameraPermission();
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -60,8 +60,6 @@ const CustomDrawer = (props) => {
       setImage(result.uri);
     }
   };
-
-  // const [status, requestPermission] = MediaLibrary.usePermissions();
 
   const onShare = async () => {
     try {

@@ -1,5 +1,6 @@
-# *InfoBroker*
-## *A mobile App created as part of Software Engineering course using React Native, Node.js, Firebase & Heroku*
+# *Info Broker* 💹
+## *A mobile App for Capital Market & Stocks recommendations* 
+### *Implemented using React Native, Node.js, Firebase & Heroku*
 
 <a href="https://reactnative.dev/" title="React Native"> <img src="https://github.com/tomchen/stack-icons/blob/master/logos/react.svg" alt="React.js + React Native" width="40" height="40"/></a>
 <a href="https://nodejs.org/en/" title="Node.js"> <img src="https://github.com/tomchen/stack-icons/blob/master/logos/nodejs.svg" alt="Node.js" width="40" height="40"/></a>
